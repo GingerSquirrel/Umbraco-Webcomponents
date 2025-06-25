@@ -1,0 +1,22 @@
+@use '../../global/styles/mixins.scss' as *;
+:host{
+    display: flex;
+    > div{
+        @include container;
+        padding: 40px 144px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: column;
+        text-align: center;
+        gap:16px;
+    }
+}
+
+.clients{
+    height: 98px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
