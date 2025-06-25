@@ -1,0 +1,54 @@
+//container mixin
+@use './typography.scss' as *;
+
+@mixin container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 1440px;
+}
+
+//headline mixins
+@mixin headline{
+    @extend .headline;
+}
+
+@mixin headline-1{
+    @extend .headline--1;
+}
+
+@mixin headline-2{
+    @extend .headline--2;
+}   
+
+@mixin headline-3{
+    @extend .headline--3;
+}   
+
+@mixin headline-4{
+    @extend .headline--4;
+}   
+
+// body mixins
+@mixin body{
+    @extend .body;
+}
+
+@mixin body-1{
+    @extend .body--1;
+}
+
+@mixin body-2{
+    @extend .body--2;
+}
+
+@mixin body-3{
+    @extend .body--3;
+}
+
+@mixin body-4{
+    @extend .body--4;
+}
+
+@mixin body-medium{
+    @extend .body--medium;
+}

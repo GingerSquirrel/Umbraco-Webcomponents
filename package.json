@@ -1,0 +1,21 @@
+{
+  "name": "webcomponents-vite-project",
+  "version": "1.0.0",
+  "description": "A project to demonstrate web components using Vite.",
+  "main": "src/main.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.3",
+    "sass": "^1.89.2",
+    "typescript": "^5.8.3",
+    "vite": "^4.0.0",
+    "vite-plugin-checker": "^0.9.3"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -1,0 +1,123 @@
+.button{
+    border-radius: 4px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    text-align: center;
+    text-decoration: none;;
+    &:hover{
+        cursor: pointer;
+    }
+}
+
+.primary{
+    @extend .button;
+    background: var(--Brand-Primary);
+    color: var(--Neutral-White);
+
+
+    &:focus{
+        outline: 2px solid var(--Neutral-D_Grey);
+        outline-offset: 0;
+    }
+    &:active{
+        background-color: var(--Shade-S2);
+    }
+
+    &.disabled, 
+    &[aria-disabled="true"]{
+        background-color: var(--Neutral-Silver);
+        color: var(--Neutral-Grey_Blue);
+        cursor: not-allowed;
+    }
+}
+
+.secondary{
+    @extend .button;
+    background-color: var(--Neutral-White);
+    border: 1px solid var(--Brand-Primary);
+    color: var(--Brand-Primary);
+
+    &:hover{
+        background-color: var(--Neutral-Silver);
+    }
+
+    &:focus{
+        outline: 2px solid var(--Neutral-L_Grey);
+        outline-offset: -1px;
+    }
+
+    &:active{
+        outline: none;
+    }
+
+    &.disabled, 
+    &[aria-disabled="true"]{
+        background-color: var(--Neutral-Silver);
+        color: var(--Neutral-Grey_Blue);
+        cursor: not-allowed;
+    }
+}
+
+.tertiary{
+    @extend .button;
+    background-color: var(--Neutral-White);
+    color: var(--Brand-Primary);
+
+    &:hover{
+        background-color: var(--Neutral-Silver);
+    }
+
+    &:focus{
+        outline: 2px solid var(--Neutral-D_Grey);
+        outline-offset: -1px;
+        background-color: var(--Neutral-White);
+    }
+
+    &:active{
+        outline: none;
+        background-color: var(--Tint-T5);
+    }
+
+    &.disabled, 
+    &[aria-disabled="true"]{
+        background-color: var(--Neutral-Silver);
+        color: var(--Neutral-Grey_Blue);
+        cursor: not-allowed;
+    }
+}
+
+.label{
+    @extend .button;
+    color: var(--Brand-Primary);
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 24px;
+
+    &.medium{
+        font-size: 16px;
+        line-height: 20px;
+    }
+
+    &.small{
+        font-size: 14px;
+        line-height: 16px;
+    }
+}
+    
+
+[data-size="normal"]{
+    padding: 16px 32px;
+}
+
+[data-size="medium"]{
+    padding: 14px 32px;
+}
+
+[data-size="small"]{
+    padding: 8px 24px;
+}
+
+//<div type="button" class="primary" data-size="normal" data-icon="down" data-icon-position="left">Login</div>

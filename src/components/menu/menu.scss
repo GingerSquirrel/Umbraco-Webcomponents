@@ -1,0 +1,33 @@
+@use '../../global/styles/mixins.scss' as *;
+:host{
+    display: flex;
+    height: 84px;
+    background-color: var(--Neutral-Silver);
+    > div{
+        @include container;
+            padding: 0px 144px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+}
+
+nav{
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    gap: 50px;
+
+    a{
+        @include body-2;
+        text-decoration: none;
+        color: var(--Text-Gray-900);
+    }
+}
+
+.buttons{
+    display: flex;
+    flex-direction: row;
+    gap: 14px;
+}

@@ -1,0 +1,10 @@
+// @use './components/mycomponent/MyComponent.scss';
+@use './global/styles/base.scss';
+@use './global/styles/variables.scss';
+@use './global/styles/typography.scss';
+
+my-component::part(div-thing){
+    h1{
+        color: red;
+    }
+}
