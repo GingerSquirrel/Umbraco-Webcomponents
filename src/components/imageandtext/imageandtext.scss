@@ -1,0 +1,31 @@
+@use '../../global/styles/mixins.scss' as *;
+@use '../../global/styles/shadows.scss' as *;
+:host{
+    display: flex;
+    text-align: left;
+    @include container;
+    
+    > div{
+        width: 100%;
+        padding: 0px 144px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+    }
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+h2{
+    margin-bottom: 16px;
+}
+
+p{
+    margin-bottom: 32px;
+}
