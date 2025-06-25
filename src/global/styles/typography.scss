@@ -6,6 +6,10 @@ body{
     font-family: "Inter", sans-serif;
 }
 
+h1, h2, h3, h4, h5, h6{
+    margin: 0;
+}
+
 .headline{
     color: var(--Neutral-Black);
     font-family: Inter;
@@ -34,7 +38,7 @@ body{
 }
 
 .body{
-    color: var(--Neutral-Black);
+    color: var(--Neutral-Grey);
     font-family: Inter;
     font-style: normal;
     font-weight: 400;

@@ -2,6 +2,7 @@
 @use './global/styles/base.scss';
 @use './global/styles/variables.scss';
 @use './global/styles/typography.scss';
+@use './global/styles/shadows.scss';
 
 my-component::part(div-thing){
     h1{
