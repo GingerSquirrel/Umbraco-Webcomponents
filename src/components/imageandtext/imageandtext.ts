@@ -1,4 +1,4 @@
-import styles from './imagetndtext.scss?inline';
+import styles from './imageandtext.scss?inline';
 import template from './imageandtext.html?raw';
 import { createComponent } from '../CreateComponent';
 
