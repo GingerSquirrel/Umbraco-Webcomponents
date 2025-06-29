@@ -6,6 +6,7 @@ import './components/hero/hero.js'; // Import the HeroComponent
 import './components/clients/clients.js'; // Import the ClientsComponent
 import './components/community/community.js'; // Import the CommunityComponent
 import './components/imageandtext/imageandtext.js'; // Import the ImageAndTextComponent
+import './components/achievements/achievements.js'; // Import the AchievementsComponent
 
 
 // const app = document.createElement('div');
