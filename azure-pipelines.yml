@@ -15,4 +15,5 @@ steps:
     app_location: '/src'
     app_build_command: 'npm run build'
     output_location: '/dist'
+    config_file_location: 'vite.config.js'
     azure_static_web_apps_api_token: '$(my_static_app_token)'
