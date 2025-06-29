@@ -1,5 +1,5 @@
-import styles from './imageAndText.scss?inline';
-import template from './imageAndText.html?raw';
+import styles from './imagetndtext.scss?inline';
+import template from './imageandtext.html?raw';
 import { createComponent } from '../CreateComponent';
 
 import img1 from '../../global/images/img1.svg'; 
