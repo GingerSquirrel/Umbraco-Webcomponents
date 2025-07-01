@@ -1,0 +1,33 @@
+@use '../../global/styles/mixins.scss' as *;
+:host{
+    display: flex;
+    text-align: left;
+
+    background-color: var(--Neutral-Silver);
+    
+    > div{
+        @include container;
+        > div{
+            padding: 64px 144px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-direction: row;
+        }
+    }
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+}
+
+h2{
+    span{
+        color: var(--Brand-Primary);
+        display: block;
+    }
+    color: var(--Neutral-D_Grey);
+}
