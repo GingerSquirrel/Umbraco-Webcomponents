@@ -14,5 +14,5 @@ steps:
   inputs:
     app_location: '/frontend'
     app_build_command: 'npm run build'
-    output_location: 'dist'
+    output_location: '/UmbracoWebcomponents/wwwroot/'
     azure_static_web_apps_api_token: '$(my_static_app_token)'
