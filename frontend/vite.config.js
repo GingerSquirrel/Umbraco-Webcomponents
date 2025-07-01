@@ -4,7 +4,7 @@ export default defineConfig({
   root: 'src',
   base: '/',
   build: {
-    outDir: '../../UmbracoWebComponents/wwwroot/',
+    outDir: 'dist',
     emptyOutDir: true,
   },
   server: {
