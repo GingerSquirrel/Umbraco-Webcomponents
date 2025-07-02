@@ -1,0 +1,23 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    HeroModule content = Model.Content as HeroModule;
+    HeroModuleSettings settings = Model.Settings as HeroModuleSettings;
+}
+<!-- Hero Module -->
+<hero-component>
+
+    <div class="text">
+        <div>
+            <h1 class="headline--1">Lessons and insights <br><span>from 8 years</span></h1>
+            <h2 class="body--2">Where to grow your business as a photographer: site or social media?</h2>
+        </div>
+
+        <button-component href="#" label="Register" class="primary" size="normal" icon="down" icon-position="left"></button-component>
+    </div>
+    <div>
+        <img src="{{heroImgUrl}}" alt="Hero Image" />
+    </div>
+
+
+</hero-component>

@@ -1,9 +1,9 @@
-import { BaseComponent } from './BaseComponent';
+import { UmbBaseComponent } from './UmbBaseComponent';
 
-export function createComponent(name: string, template: string = "", styles: string = '') {
-    class DynamicComponent extends BaseComponent {
+export function umbCreateComponent(name: string, styles: string = '') {
+    class DynamicComponent extends UmbBaseComponent {
         constructor() {
-            super(template, styles);
+            super(styles);
         }
 
         connectedCallback() {

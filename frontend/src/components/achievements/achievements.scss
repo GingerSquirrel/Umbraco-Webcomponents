@@ -4,17 +4,19 @@
     text-align: left;
 
     background-color: var(--Neutral-Silver);
+     
     
-    > div{
-        @include container;
+    
+       
         > div{
+            @include container;
             padding: 64px 144px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             flex-direction: row;
         }
-    }
+    
 }
 
 .text{

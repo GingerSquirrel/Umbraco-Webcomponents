@@ -5,15 +5,12 @@
     text-align: center;
     @include container;
     margin-bottom: 42px;
+    padding: 0px 144px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: column;
     
-    > div{
-        width: 100%;
-        padding: 0px 144px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: column;
-    }
+
 }
 
 h2{

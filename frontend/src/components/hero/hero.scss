@@ -3,11 +3,10 @@
     display: flex;
     background-color: var(--Neutral-Silver);
     display: flex;
+    flex-direction: column;
 
     > div{
         @include container;
-
-        > div{
         display: flex;
         gap:104px;
         flex-direction: row;
@@ -16,7 +15,7 @@
         align-self: stretch;
         justify-content: space-between;
         padding: 96px 144px;
-        }
+        
     }
 }
 

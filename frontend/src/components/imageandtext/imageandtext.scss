@@ -4,15 +4,12 @@
     display: flex;
     text-align: left;
     @include container;
+    padding: 0px 144px;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row;
     
-    > div{
-        width: 100%;
-        padding: 0px 144px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        flex-direction: row;
-    }
+
 }
 
 .text{
