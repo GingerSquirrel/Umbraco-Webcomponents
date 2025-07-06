@@ -1,3 +1,5 @@
+const UMB = import.meta.env.VITE_UMB === 'true';
+
 import styles from './button.scss?inline';
 import template from './button.html?raw';
 import { BaseComponent } from '../BaseComponent';

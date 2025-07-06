@@ -7,10 +7,10 @@ import achievement2 from '../../global/images/logo2.svg';
 import achievement3 from '../../global/images/logo3.svg'; 
 import achievement4 from '../../global/images/logo4.svg'; 
 
-
 var html = template.replace('{{achievement1}}', achievement1)
   .replace('{{achievement2}}', achievement2)
   .replace('{{achievement3}}', achievement3)
   .replace('{{achievement4}}', achievement4);
+
 
 createComponent('achievements', html, styles);

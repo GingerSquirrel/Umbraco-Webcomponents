@@ -5,11 +5,6 @@
 @use './global/styles/shadows.scss';
 
 
-$umb: false !default; // fallback
-$notUmb: not $umb;
-
-
-
 
 // menu-component::part(div){
 //     h1{
@@ -18,19 +13,14 @@ $notUmb: not $umb;
 // }
 
 
-
+// This stop the FOUC (Flash of Unstyled Content) by hiding components until they are defined
 $components: 
     'hero', 
     'menu', 
     'clients';
 
 @each $component in $components {
-    umb-#{$component}-component:not(:defined) {
+    #{$component}-component:not(:defined) {
         display: none;
-    }
-    @if $notUmb {
-        #{$component}-component:not(:defined) {
-            display: none;
-        }
     }
 }

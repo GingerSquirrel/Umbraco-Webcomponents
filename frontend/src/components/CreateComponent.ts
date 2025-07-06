@@ -15,5 +15,6 @@ export function createComponent(name: string, template: string = '', styles: str
         }
     }
 
+    console.log(`Defining custom element: ${name}-component`);
     customElements.define(`${name}-component`, DynamicComponent);
 }
