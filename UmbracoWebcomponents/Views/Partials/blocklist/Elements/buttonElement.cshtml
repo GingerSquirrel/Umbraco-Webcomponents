@@ -1,0 +1,20 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    ButtonElement content = Model.Content as ButtonElement;
+    ButtonElementSettings settings = Model.Settings as ButtonElementSettings;
+}
+
+<!-- Button Element -->
+
+<button-component
+    href="@(content.Link != null ? content.Link.Url : "#")"
+    label="@content.Link.Name"
+    class="@content.Style"
+    size="@content.Size"
+    icon="@content.Icon"
+    icon-position="@content.IconPosition">
+
+    <a role="button" tabindex="0"></a>
+
+</button-component>

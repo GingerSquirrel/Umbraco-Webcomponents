@@ -4,18 +4,16 @@
     text-align: left;
 
     background-color: var(--Neutral-Silver);
-     
-    
-    
+
        
-        > div{
-            @include container;
-            padding: 64px 144px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-direction: row;
-        }
+    > div{
+        @include container;
+        padding: 64px 144px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-direction: row;
+    }
     
 }
 
@@ -24,12 +22,21 @@
     flex-direction: column;
     justify-content: center;
     width: 100%;
+    p{
+        @include body-1;
+    }
+
 }
 
 h2{
+    @include headline-2;
     span{
         color: var(--Brand-Primary);
         display: block;
     }
     color: var(--Neutral-D_Grey);
+}
+
+h3{
+    @include body-2;
 }

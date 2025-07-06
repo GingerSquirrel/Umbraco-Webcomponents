@@ -18,5 +18,13 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "build": {
+    "outDir": "../dist",
+    "emptyOutDir": false
+  },
+  "umbBuild": {
+    "outDir": "../../UmbracoWebComponents/wwwroot",
+    "emptyOutDir": false
+  }
 }

@@ -5,7 +5,7 @@ export default defineConfig({
   base: '/',
   build: {
     outDir: '../dist',
-    emptyOutDir: true,
+    emptyOutDir: false,
         rollupOptions: {
       output: {
         entryFileNames: 'assets/[name].js',
@@ -25,6 +25,7 @@ export default defineConfig({
           @use "src/global/styles/mixins.scss" as *;
           @use "src/global/styles/typography.scss" as *;
           @use "src/global/styles/fonts.scss" as *;
+          @use "src/global/styles/shadows.scss" as *;
         `
       }
     }

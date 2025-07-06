@@ -1,0 +1,23 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    ImageAndTextModule content = Model.Content as ImageAndTextModule;
+    ImageAndTextModuleSettings settings = Model.Settings as ImageAndTextModuleSettings;
+}
+<!-- Image and Text Module -->
+<imageandtext-component>
+    <div>
+        <img src="{{img1}}" alt="Image" class="image" />
+    </div>
+
+    <div class="text">
+        <h2>The unseen of spending three years at Pixelgrade</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+            Sed sit amet justo ipsum. Sed accumsan quam vitae est varius 
+            fringilla. Pellentesque placerat vestibulum lorem sed porta. 
+            Nullam mattis tristique iaculis. Nullam pulvinar sit amet risus 
+            pretium auctor. Etiam quis massa pulvinar, aliquam quam vitae, 
+            tempus sem. Donec elementum pulvinar odio.</p>
+            <button-component href="#" label="Learn more" class="primary" size="normal" icon="arrow-right" icon-position="right"></component-button>
+    </div>
+</imageandtext-component>

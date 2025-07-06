@@ -1,0 +1,28 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    ClientsModule content = Model.Content as ClientsModule;
+    ClientsModuleSettings settings = Model.Settings as ClientsModuleSettings;
+}
+<!-- Clients Module -->
+<clients-component>
+    <div class="header">
+        <h2>@content.Header</h2>
+        <h3>@content.Subtitle</h3>
+    </div>
+
+    <div class="clients">
+        @foreach(var image in content.Images)
+        {
+            if (image.Url() != null)
+            {
+                <img src="@image.Url()" alt="@image.Name" />
+            }
+        }
+    </div>
+
+
+</clients-component>
+
+
+

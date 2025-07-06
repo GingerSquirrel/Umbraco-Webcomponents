@@ -1,5 +1,6 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
 @using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
 @{
     MenuModule content = Model.Content as MenuModule;
     MenuModuleSettings settings = Model.Settings as MenuModuleSettings;
@@ -8,21 +9,20 @@
 <menu-component>
     <div>
         <div>
-            <img src="{{logo}}" alt="Logo" />
+            @if (content.Logo != null && content.Logo.Url() != null)
+            {
+                <img src="@content.Logo.Url()" alt="Logo" />
+            }
         </div>
         <nav>
-            <a href="#">Home</a>
-            <a href="#">Service</a>  
-            <a href="#">Feature</a>
-            <a href="#">Product</a>
-            <a href="#">Testimonial</a>
-            <a href="#">FAQ</a>
-
+            @foreach (Link item in content.MenuItems)
+            {
+                <a href="@item.Url">@item.Name</a>
+            }
 
         </nav>
         <div class="buttons">
-            <button-component href="http://www.google.com" label="Login" class="label" size="normal" icon="down" icon-position="left"></button-component>
-            <button-component href="http://www.google.com" label="Sign Up" class="primary" size="normal" icon="down" icon-position="left"></button-component>
+            @Html.GetBlockListHtml(content.CallToAction)
         </div>
     </div>
 

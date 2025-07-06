@@ -1,13 +1,32 @@
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListModel>
 @{
+    bool end = false; 
     if (Model?.Any() != true) { return; }
 }
-<div class="umb-block-list">
+
     @foreach (var block in Model)
     {
         if (block?.ContentUdi == null) { continue; }
         var data = block.Content;
 
-        @await Html.PartialAsync("blocklist/Components/" + data.ContentType.Alias, block)
+                switch (data.ContentType.Alias)
+        {
+            //case ButtonElement.ModelTypeAlias:
+            //    @await Html.PartialAsync("blocklist/renderButtons", Model)
+            //    end = true;
+            //break;
+            case var a when data.ContentType.Alias.Contains("Element"):
+                @await Html.PartialAsync("blocklist/elements", Model)
+                end = true;
+            break;
+            default:
+                @await Html.PartialAsync("blocklist/components/" + data.ContentType.Alias, block)
+            break;
+        }
+
+        if (end)
+        {
+            break;
+        }
     }
-</div>
+

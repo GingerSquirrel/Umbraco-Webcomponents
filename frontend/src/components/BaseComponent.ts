@@ -1,4 +1,4 @@
-export const UMB = import.meta.env.VITE_UMB === 'true';
+export const UMB = import.meta.env.VITE_UMB;
 export class BaseComponent extends HTMLElement {
     constructor(template: string = '', styles: string = '') {
         console.log('BaseComponent constructor called');

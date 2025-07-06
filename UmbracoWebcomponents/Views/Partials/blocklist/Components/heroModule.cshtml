@@ -13,10 +13,14 @@
                 <h2>Where to grow your business as a photographer: site or social media?</h2>
             </div>
 
-            <button-component href="#" label="Register" class="primary" size="normal" icon="down" icon-position="left"></button-component>
+            @Html.GetBlockListHtml(content.CallToAction)
         </div>
         <div>
-            <img src="../global/images/illustration.svg" alt="Hero Image" />
+            @if(content.Image != null && content.Image.Url() != null)
+            {
+                <img src="@content.Image.Url()" alt="Hero Image" />
+            }
+
         </div>
     </div>
 </hero-component>
