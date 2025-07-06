@@ -6,6 +6,8 @@ builder.CreateUmbracoBuilder()
     .AddComposers()
     .Build();
 
+builder.Services.AddScoped<UmbracoWebcomponents.Services.HeaderFooterService>();
+
 WebApplication app = builder.Build();
 
 await app.BootUmbracoAsync();

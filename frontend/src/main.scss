@@ -4,8 +4,33 @@
 @use './global/styles/typography.scss';
 @use './global/styles/shadows.scss';
 
-my-component::part(div-thing){
-    h1{
-        color: red;
+
+$umb: false !default; // fallback
+$notUmb: not $umb;
+
+
+
+
+// menu-component::part(div){
+//     h1{
+//         color: red;
+//     }
+// }
+
+
+
+$components: 
+    'hero', 
+    'menu', 
+    'clients';
+
+@each $component in $components {
+    umb-#{$component}-component:not(:defined) {
+        display: none;
+    }
+    @if $notUmb {
+        #{$component}-component:not(:defined) {
+            display: none;
+        }
     }
 }

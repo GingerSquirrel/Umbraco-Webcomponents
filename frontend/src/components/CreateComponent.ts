@@ -1,6 +1,6 @@
 import { BaseComponent } from './BaseComponent';
 
-export function createComponent(name: string, template: string = "", styles: string = '') {
+export function createComponent(name: string, template: string = '', styles: string = '') {
     class DynamicComponent extends BaseComponent {
         constructor() {
             super(template, styles);

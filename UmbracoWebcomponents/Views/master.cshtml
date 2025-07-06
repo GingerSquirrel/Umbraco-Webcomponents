@@ -1,5 +1,6 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@inject UmbracoWebcomponents.Services.HeaderFooterService HeaderFooterService
 @{
 	Layout = null;
 }
@@ -13,6 +14,19 @@
   <link rel="stylesheet" href="/assets/index.css">
 </head>
 <body>
+
+
+
+@{
+    var header = HeaderFooterService.GetHeader();
+    // Use header as needed
+}
+
+@if (header != null)
+{
+	@Html.GetBlockListHtml(header)
+}
+
 @RenderBody()
         
 

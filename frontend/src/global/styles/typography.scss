@@ -1,69 +1,78 @@
 //headlines
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
-
-body{
+//headline mixins
+@mixin headline{
     font-family: "Inter", sans-serif;
-}
-
-h1, h2, h3, h4, h5, h6{
-    margin: 0;
-}
-
-.headline{
     color: var(--Neutral-Black);
     font-family: Inter;
     font-style: normal;
     font-weight: 600;
-    &--1{
-        @extend .headline;
-        font-size: 64px;
-        line-height: 76px;
-    }
-    &--2{
-        @extend .headline;
-        font-size: 36px;
-        line-height: 44px;
-    }
-    &--3{
-        @extend .headline;
-        font-size: 28px;
-        line-height: 36px;
-    }
-    &--4{
-        @extend .headline;
-        font-size: 20px;
-        line-height: 28px;
-    }
+    margin: 0;
 }
 
-.body{
+@mixin headline-1{
+    @include headline;
+    font-size: 64px;
+    line-height: 76px;
+}
+
+@mixin headline-2{
+    @include headline;
+    font-size: 36px;
+    line-height: 44px;
+}   
+
+@mixin headline-3{
+    @include headline;
+    font-size: 28px;
+    line-height: 36px;
+}   
+
+@mixin headline-4{
+    @include headline;
+    font-size: 20px;
+    line-height: 28px;
+}   
+
+
+// body mixins
+@mixin body{
+    font-family: "Inter", sans-serif;
     color: var(--Neutral-Grey);
     font-family: Inter;
     font-style: normal;
     font-weight: 400;
-    &--medium{
-        font-weight: 500;
-    }
-    &--1{
-        @extend .body;
-        font-size: 18px;
-        line-height: 28px;
-    }
-    &--2{
-        @extend .body;
-        font-size: 16px;
-        line-height: 24px;
-    }
-    &--3{
-        @extend .body;
-        font-size: 14px;
-        line-height: 20px;
-    }
-    &--4{
-        @extend .body;
-        font-size: 12px;
-        line-height: 16px;
-    }
 }
 
+@mixin body-medium{
+    @include body;
+    font-weight: 500;
+}
+
+@mixin body-1{
+    @include body;
+    font-size: 18px;
+    line-height: 28px;
+}
+
+@mixin body-2{
+    @include body;
+    font-size: 16px;
+    line-height: 24px;
+}
+
+@mixin body-3{
+    @include body;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+@mixin body-4{
+    @include body;
+    font-size: 12px;
+    line-height: 16px;
+}
+
+@mixin body-medium{
+    @extend .body--medium;
+}

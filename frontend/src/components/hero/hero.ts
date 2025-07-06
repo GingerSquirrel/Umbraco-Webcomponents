@@ -1,3 +1,6 @@
+
+const UMB = import.meta.env.VITE_UMB === 'true';
+
 import styles from './hero.scss?inline';
 import template from './hero.html?raw';
 import { createComponent } from '../CreateComponent';
@@ -7,6 +10,8 @@ import heroImgUrl from '../../global/images/illustration.svg'; // Importing the 
 
 var html = template.replace('{{heroImgUrl}}', heroImgUrl);
 
-createComponent('hero', html, styles);
+if(!UMB){
+    createComponent('hero', html, styles);
+}
 
 umbCreateComponent('umb-hero', styles);

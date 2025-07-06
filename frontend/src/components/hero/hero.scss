@@ -1,6 +1,4 @@
-@use '../../global/styles/mixins.scss' as *;
 :host{
-    display: flex;
     background-color: var(--Neutral-Silver);
     display: flex;
     flex-direction: column;
@@ -30,7 +28,12 @@
 }
 
 h1{
+    @include headline-1;
     span{
         color: var(--Brand-Primary);
     }
+}
+
+h2{
+    @include body-2;
 }

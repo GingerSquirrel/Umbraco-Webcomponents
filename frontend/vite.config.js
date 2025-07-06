@@ -17,4 +17,16 @@ export default defineConfig({
   server: {
     port: 3000,
   },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `
+          $umb: ${process.env.VITE_UMB === 'true'};
+          @use "src/global/styles/mixins.scss" as *;
+          @use "src/global/styles/typography.scss" as *;
+          @use "src/global/styles/fonts.scss" as *;
+        `
+      }
+    }
+  }
 });

@@ -1,11 +1,12 @@
-@use '../../global/styles/mixins.scss' as *;
+
+@use '../../global/styles/typography.scss' as *;
 :host{
     display: flex;
     height: 84px;
     background-color: var(--Neutral-Silver);
     > div{
         @include container;
-            padding: 0px 144px;
+        padding: 0px 144px;
         display: flex;
         align-items: center;
         justify-content: space-between;

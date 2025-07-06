@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "umbbuild": "vite build --outDir ../../UmbracoWebComponents/wwwroot",
+    "umbbuild": "set VITE_UMB=true && vite build --outDir ../../UmbracoWebComponents/wwwroot",
     "serve": "vite preview"
   },
   "devDependencies": {
