@@ -40,3 +40,28 @@ h2{
 h3{
     @include body-2;
 }
+
+
+.achievements{
+    display: flex;
+    flex-direction: row;
+    gap: 30px 40px;
+    flex-wrap: wrap;
+    width: 100%;
+}
+
+.achievement{
+    width: 47%;
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+
+    h3{
+        @include headline-3;
+    }
+
+    p{
+        @include body-2;
+        margin: 0px;
+    }
+}
