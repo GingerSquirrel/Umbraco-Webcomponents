@@ -1,0 +1,20 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@{
+    CommunityMemberElement content = Model.Content as CommunityMemberElement;
+    CommunityMemberElementSettings settings = Model.Settings as CommunityMemberElementSettings;
+}
+
+<!-- Community Member Element -->
+
+<div class="section">
+    <div class="icon-container">
+        <div></div>
+        @if (content.Icon != null && content.Icon.Url() != null)
+        {
+            <img src="@content.Icon.Url()" alt="Community Icon" class="icon" />
+        }
+    </div>
+    <h3>@content.Heading</h3>
+    <p>@content.Description</p>
+</div>

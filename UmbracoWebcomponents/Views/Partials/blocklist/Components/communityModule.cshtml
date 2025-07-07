@@ -6,33 +6,10 @@
 }
 <!-- Community Module -->
 <community-component>
-    <h2>Manage your entire community<br> in a single system</h2>
-    <p>Who is Nextcent suitable for?</p>
+    <h2>@content.Heading</h2>
+    <p>@content.Subheading</p>
     <div class="sections">
-        <div class="section">
-            <div class="icon-container">
-                <div></div>
-                <img src="{{Icon1}}" alt="Community Icon" class="icon" />
-            </div>
-            <h3>Membership Organisations</h3>
-            <p>Our membership management software provides full automation of membership renewals and payments</p>
-        </div>
-        <div class="section">
-            <div class="icon-container">
-                <div></div>
-                <img src="{{Icon2}}" alt="Community Icon" class="icon" />
-            </div>
-            <h3>National Associations</h3>
-            <p>Our membership management software provides full automation of membership renewals and payments</p>
-        </div>
-        <div class="section">
-            <div class="icon-container">
-                <div></div>
-                <img src="{{Icon3}}" alt="Community Icon" class="icon" />
-            </div>
-            <h3>Clubs And Groups</h3>
-            <p>Our membership management software provides full automation of membership renewals and payments</p>
-        </div>
+        @Html.GetBlockListHtml(content.CommunityMembers)
     </div>
 </community-component>
 
