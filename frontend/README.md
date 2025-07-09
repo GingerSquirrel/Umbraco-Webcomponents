@@ -69,3 +69,6 @@ This project is inspired by a [Figma minimal landing page design](https://www.fi
 - You can use SCSS for global and component-specific styles.
 - Vite enables fast hot module replacement and modern build tooling.
 - Extend this setup to add more components or integrate with frameworks as needed.
+
+## DEMO
+[See here](https://black-water-04dcb7f1e.2.azurestaticapps.net/)
