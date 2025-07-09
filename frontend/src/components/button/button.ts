@@ -3,6 +3,12 @@ const UMB = import.meta.env.VITE_UMB === 'true';
 import styles from './button.scss?inline';
 import template from './button.html?raw';
 import { BaseComponent } from '../BaseComponent';
+import arrowRightIcon from '../../global/images/icon-right.svg?raw'; // Import SVG as raw string
+
+const iconSvgs: Record<string, string> = {
+    'right': arrowRightIcon,
+    // Add more icons as needed, e.g. 'down': downIcon
+};
 
 class ButtonComponent extends BaseComponent {
     static get observedAttributes() {
@@ -17,18 +23,30 @@ class ButtonComponent extends BaseComponent {
         const anchor = this.shadowRoot?.querySelector('a');
         if (!anchor) return;
 
+        // Helper to update label with inline SVG if icon attribute is present
+        const updateLabelWithIcon = () => {
+            const label = this.getAttribute('label') ?? '';
+            const icon = this.getAttribute('icon');
+            if (icon && iconSvgs[icon]) {
+                anchor.innerHTML = `<span>${label}</span> ${iconSvgs[icon]}`;
+                // Optionally add class to the SVG
+                const svg = anchor.querySelector('svg');
+                if (svg) svg.classList.add('icon-svg');
+            } else {
+                anchor.textContent = label;
+            }
+        };
+
         switch (name) {
             case 'label':
-                anchor.textContent = newValue ?? '';
+            case 'icon':
+                updateLabelWithIcon();
                 break;
             case 'class':
                 anchor.className = newValue ?? '';
                 break;
             case 'size':
                 anchor.setAttribute('data-size', newValue ?? '');
-                break;
-            case 'icon':
-                anchor.setAttribute('data-icon', newValue ?? '');
                 break;
             case 'icon-position':
                 anchor.setAttribute('data-icon-position', newValue ?? '');
@@ -55,10 +73,19 @@ class ButtonComponent extends BaseComponent {
         const anchor = this.shadowRoot?.querySelector('a');
         if (!anchor) return;
 
-        anchor.textContent = this.getAttribute('label') ?? '';
+        const label = this.getAttribute('label') ?? '';
+        const icon = this.getAttribute('icon');
+        if (icon && iconSvgs[icon]) {
+            anchor.innerHTML = `<span>${label}</span> ${iconSvgs[icon]}`;
+            const svg = anchor.querySelector('svg');
+            if (svg) svg.classList.add('icon-svg');
+        } else {
+            anchor.textContent = label;
+        }
+
         anchor.className = this.getAttribute('class') ?? '';
         anchor.setAttribute('data-size', this.getAttribute('size') ?? '');
-        anchor.setAttribute('data-icon', this.getAttribute('icon') ?? '');
+        anchor.setAttribute('data-icon', icon ?? '');
         anchor.setAttribute('data-icon-position', this.getAttribute('icon-position') ?? '');
         anchor.setAttribute('href', this.getAttribute('href') ?? '#');
         anchor.setAttribute('target', this.getAttribute('target') ?? '_self');

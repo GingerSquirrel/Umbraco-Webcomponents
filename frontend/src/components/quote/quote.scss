@@ -1,0 +1,57 @@
+:host{
+    display: flex;
+    text-align: left;
+    background-color: var(--Neutral-Silver);
+
+       
+    > div{
+        @include container;
+        padding: 64px 144px;
+        display: flex;
+        flex-direction: row;
+        gap: 78px;;
+    }
+    
+}
+
+p{
+    margin-bottom: 16px;
+    @include body-2;
+}
+
+h3{
+    margin-bottom: 8px;
+    @include headline-4;
+}
+
+.content{
+    display: flex;
+    flex-direction: column !important;
+    justify-content: center;
+    width: 100%;
+
+    h3{
+        @include headline-4;
+        color: var(--Brand-Primary);
+        margin: 0;
+        margin-bottom: 8px;
+    }
+
+    h4{
+        @include body-2;
+        margin: 0;
+        margin-bottom: 32px;
+    }
+}
+
+.logos{
+    display: flex;
+    flex-direction: row;
+    gap: 41px;
+    justify-content: space-between; 
+}
+
+button-component::part(button){
+    font-weight: 500;
+}
+    

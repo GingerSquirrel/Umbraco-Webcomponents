@@ -120,4 +120,14 @@
     padding: 8px 24px;
 }
 
+.icon-svg{
+    fill: currentColor;
+    stroke: currentColor;
+}
+
+[data-icon-position="left"]{
+    flex-direction: row-reverse;
+}
+
+
 //<div type="button" class="primary" data-size="normal" data-icon="down" data-icon-position="left">Login</div>
