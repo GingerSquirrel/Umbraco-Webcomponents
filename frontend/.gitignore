@@ -23,3 +23,5 @@ Thumbs.db
 .idea/
 *.sublime-workspace
 *.sublime-project
+*storybook.log
+storybook-static
