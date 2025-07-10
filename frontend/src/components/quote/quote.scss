@@ -2,16 +2,17 @@
     display: flex;
     text-align: left;
     background-color: var(--Neutral-Silver);
-
-       
+   
     > div{
         @include container;
-        padding: 64px 144px;
         display: flex;
-        flex-direction: row;
-        gap: 78px;;
+        flex-direction: column;
+        @include desktop {
+            flex-direction: row;
+                    gap: 78px;
+        }
+
     }
-    
 }
 
 p{
@@ -49,8 +50,19 @@ h3{
     flex-direction: row;
     gap: 41px;
     justify-content: space-between; 
+    flex-wrap: wrap;
 }
 
+.image{
+    img{
+        max-width: 100%;
+        height: auto;
+
+    }
+}
+
+
+// TODO : Make this a parameter
 button-component::part(button){
     font-weight: 500;
 }

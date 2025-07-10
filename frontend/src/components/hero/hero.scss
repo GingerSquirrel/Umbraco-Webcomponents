@@ -2,17 +2,21 @@
     background-color: var(--Neutral-Silver);
     display: flex;
     flex-direction: column;
+    
 
     > div{
         @include container;
         display: flex;
         gap:104px;
-        flex-direction: row;
+        flex-direction: column;
+        @include tablet {
+            flex-direction: row;
+        }
         align-items: center;
         gap: 104px;
         align-self: stretch;
         justify-content: space-between;
-        padding: 96px 144px;
+        
         
     }
 }
@@ -36,4 +40,8 @@ h1{
 
 h2{
     @include body-2;
+}
+
+img{
+    width: 100%;
 }

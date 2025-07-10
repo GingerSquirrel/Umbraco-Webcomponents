@@ -3,8 +3,6 @@
     display: flex;
     text-align: center;
     @include container;
-    margin-bottom: 42px;
-    padding: 0px 144px;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
@@ -24,7 +22,12 @@ p{
 
 .sections{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
+    align-items: center;
+    gap:40px;
+    @include desktop {
+        flex-direction: row;
+    }
     justify-content: space-between;
     width: 100%;
     h3{
