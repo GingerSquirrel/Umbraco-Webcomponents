@@ -9,7 +9,8 @@
     "umbbuild": "set VITE_UMB=true && vite build --outDir ../../UmbracoWebComponents/wwwroot",
     "serve": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build"
+    "build-storybook": "storybook build --output-dir dist/storybook",
+    "build:all": "npm run build && npm run build-storybook"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.1",
