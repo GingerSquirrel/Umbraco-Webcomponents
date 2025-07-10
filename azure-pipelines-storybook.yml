@@ -14,9 +14,15 @@ steps:
   inputs:
     version: '20.11.1'
 
+- script: |
+    npm ci
+    npm run build:all
+  displayName: 'Install and Build'
+
 - task: AzureStaticWebApp@0
   inputs:
     app_location: '/frontend'
     app_build_command: 'npm run build:all'
     output_location: 'dist'
+    skip_app_build: true # Prevents the task from running its own build
     azure_static_web_apps_api_token: '$(my_static_app_token)'
