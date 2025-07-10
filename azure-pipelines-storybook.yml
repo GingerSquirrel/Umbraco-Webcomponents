@@ -15,7 +15,7 @@ steps:
     version: '20.11.1'
 
 - script: |
-    rm -rf node_modules package-lock.json
+    rm -rf node_modules
     npm cache clean --force
   displayName: 'Clean node_modules and npm cache'
   workingDirectory: frontend
