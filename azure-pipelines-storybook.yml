@@ -18,6 +18,7 @@ steps:
     npm ci
     npm run build:all
   displayName: 'Install and Build'
+  workingDirectory: frontend
 
 - task: AzureStaticWebApp@0
   inputs:
