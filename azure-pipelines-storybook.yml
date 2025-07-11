@@ -34,8 +34,7 @@ steps:
 
 - task: AzureStaticWebApp@0
   inputs:
-    app_location: '/frontend'
-    app_build_command: 'npm run build:all'
+    app_location: '/frontend/dist'
     output_location: 'dist'
     skip_app_build: true # Prevents the task from running its own build
     azure_static_web_apps_api_token: '$(my_static_app_token)'
