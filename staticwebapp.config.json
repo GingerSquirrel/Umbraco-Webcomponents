@@ -1,0 +1,16 @@
+{
+  "routes": [
+    {
+      "route": "/storybook",
+      "rewrite": "/storybook/index.html"
+    },
+    {
+      "route": "/storybook/*",
+      "serve": "/storybook/$1"
+    }
+  ],
+  "navigationFallback": {
+    "rewrite": "/index.html",
+    "exclude": ["/storybook/*", "*.{css,scss,js,png,gif,ico,jpg,svg,woff,woff2}"]
+  }
+}
