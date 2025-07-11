@@ -4,9 +4,13 @@
       "route": "/storybook",
       "rewrite": "/storybook/index.html"
     },
+        {
+      "route": "/storybook/",
+      "rewrite": "/storybook/index.html"
+    },
     {
       "route": "/storybook/*",
-      "serve": "/storybook/$1"
+      "rewrite": "/storybook/$1"
     }
   ],
   "navigationFallback": {
