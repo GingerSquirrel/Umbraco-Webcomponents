@@ -26,6 +26,12 @@ steps:
   displayName: 'Install and Build'
   workingDirectory: frontend
 
+- script: |
+    ls -l dist
+    cat dist/index.html
+  displayName: 'Show dist contents'
+  workingDirectory: frontend
+
 - task: AzureStaticWebApp@0
   inputs:
     app_location: '/frontend'
