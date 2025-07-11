@@ -4,6 +4,8 @@ node_modules/
 # Vite cache
 dist/
 .vite/
+dist-storybook/
+dist-vite/
 
 # Logs
 npm-debug.log*

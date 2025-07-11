@@ -6,14 +6,17 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
+    "build:vite": "vite build --outDir ../dist-vite",
     "umbbuild": "set VITE_UMB=true && vite build --outDir ../../UmbracoWebComponents/wwwroot",
     "serve": "vite preview",
     "storybook": "storybook dev -p 6006",
-    "build-storybook": "storybook build --output-dir dist/storybook",
-    "build:all": "npm run build && npm run build-storybook"
+    "build-storybook": "storybook build --output-dir dist-storybook",
+    "merge:builds": "cpx \"dist-vite/**/*\" dist && cpx \"dist-storybook/**/*\" dist/storybook",
+    "build:all": "npm run build:vite && npm run build-storybook && npm run merge:builds"
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^4.0.1",
+    "cpx": "^1.5.0",
     "@storybook/addon-a11y": "^9.0.16",
     "@storybook/addon-docs": "^9.0.16",
     "@storybook/addon-vitest": "^9.0.16",
