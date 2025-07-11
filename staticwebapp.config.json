@@ -16,5 +16,6 @@
   "navigationFallback": {
     "rewrite": "/index.html",
     "exclude": ["/storybook/*", "*.{css,scss,js,png,gif,ico,jpg,svg,woff,woff2}"]
-  }
+  },
+  "trailingSlash": "auto"
 }
