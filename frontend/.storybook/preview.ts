@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/web-components-vite'
+import type { Preview } from '@storybook/html-vite';
 import '../src/main.scss'; // Import your global styles
 import '../src/global/styles/variables.scss'; // Import your global variables
 import '../src/components/button/button.ts'

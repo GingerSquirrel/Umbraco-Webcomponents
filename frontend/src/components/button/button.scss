@@ -1,90 +1,104 @@
-.button{
+.button {
     border-radius: 4px;
     display: inline-flex;
     justify-content: center;
     align-items: center;
     gap: 10px;
     text-align: center;
-    text-decoration: none;;
+    text-decoration: none;
+    
     &:hover{
         cursor: pointer;
     }
 }
 
-.primary{
+.primary {
     @extend .button;
     background: var(--Brand-Primary);
     color: var(--Neutral-White);
 
-
-    &:focus{
+    &:focus {
         outline: 2px solid var(--Neutral-D_Grey);
         outline-offset: 0;
     }
-    &:active{
+    
+    &:active {
         background-color: var(--Shade-S2);
     }
 
+    // Handle both disabled="" and disabled="true"
     &.disabled, 
-    &[aria-disabled="true"]{
-        background-color: var(--Neutral-Silver);
-        color: var(--Neutral-Grey_Blue);
-        cursor: not-allowed;
+    &[aria-disabled="true"],
+    &[disabled],
+    &[disabled="true"] {
+        background-color: var(--Neutral-Silver) !important;
+        color: var(--Neutral-Grey_Blue) !important;
+        cursor: not-allowed !important;
+        pointer-events: none !important;
     }
 }
 
-.secondary{
+.secondary {
     @extend .button;
     background-color: var(--Neutral-White);
     border: 1px solid var(--Brand-Primary);
     color: var(--Brand-Primary);
 
-    &:hover{
+    &:hover {
         background-color: var(--Neutral-Silver);
     }
 
-    &:focus{
+    &:focus {
         outline: 2px solid var(--Neutral-L_Grey);
         outline-offset: -1px;
     }
 
-    &:active{
+    &:active {
         outline: none;
     }
 
+    // Handle both disabled="" and disabled="true"
     &.disabled, 
-    &[aria-disabled="true"]{
-        background-color: var(--Neutral-Silver);
-        color: var(--Neutral-Grey_Blue);
-        cursor: not-allowed;
+    &[aria-disabled="true"],
+    &[disabled],
+    &[disabled="true"] {
+        background-color: var(--Neutral-Silver) !important;
+        color: var(--Neutral-Grey_Blue) !important;
+        cursor: not-allowed !important;
+        pointer-events: none !important;
+        border-color: var(--Neutral-Grey_Blue) !important;
     }
 }
 
-.tertiary{
+.tertiary {
     @extend .button;
     background-color: var(--Neutral-White);
     color: var(--Brand-Primary);
 
-    &:hover{
+    &:hover {
         background-color: var(--Neutral-Silver);
     }
 
-    &:focus{
+    &:focus {
         outline: 2px solid var(--Neutral-D_Grey);
         outline-offset: -1px;
         background-color: var(--Neutral-White);
     }
 
-    &:active{
+    &:active {
         outline: none;
         background-color: var(--Tint-T5);
     }
 
+    // Handle both disabled="" and disabled="true"
     &.disabled, 
-    &[aria-disabled="true"]{
-        background-color: var(--Neutral-Silver);
-        color: var(--Neutral-Grey_Blue);
-        cursor: not-allowed;
+    &[aria-disabled="true"],
+    &[disabled],
+    &[disabled="true"] {
+        background-color: var(--Neutral-Silver) !important;
+        color: var(--Neutral-Grey_Blue) !important;
+        cursor: not-allowed !important;
+        pointer-events: none !important;
     }
 }
 
@@ -128,6 +142,5 @@
 [data-icon-position="left"]{
     flex-direction: row-reverse;
 }
-
 
 //<div type="button" class="primary" data-size="normal" data-icon="down" data-icon-position="left">Login</div>

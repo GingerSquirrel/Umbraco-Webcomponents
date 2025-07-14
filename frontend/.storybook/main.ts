@@ -1,23 +1,25 @@
-import type { StorybookConfig } from '@storybook/web-components-vite';
+import type { StorybookConfig } from '@storybook/html-vite';
 
 const config: StorybookConfig = {
-  "stories": [
+  stories: [
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|mjs|ts|tsx)"
   ],
-  "addons": [
-    "@chromatic-com/storybook",
+  addons: [
     "@storybook/addon-docs",
     "@storybook/addon-a11y",
-    "@storybook/addon-vitest"
+    "@storybook/addon-vitest",
+    '@storybook/addon-essentials', // This includes controls
+    '@storybook/addon-controls' // Add this explicitly to ensure controls work
   ],
-  "framework": {
-    "name": "@storybook/web-components-vite",
+  framework: {
+    "name": "@storybook/html-vite",
     "options": {}
   },
-    viteFinal: async (config) => {
+  viteFinal: async (config) => {
     config.base = '/storybook/';
     return config;
   }
 };
+
 export default config;

@@ -17,7 +17,59 @@ class ButtonComponent extends BaseComponent {
 
     constructor() {
         super(template, styles);
+        this.setupKeyboardHandling();
+        this.updateButtonContent();
     }
+
+      setupKeyboardHandling() {
+        // Add keyboard event handling after the component is created
+        this.addEventListener('keydown', (event) => {
+        // Handle Enter key (keyCode 13 or key 'Enter')
+        if (event.key === 'Enter' || event.keyCode === 13) {
+            event.preventDefault();
+            this.click(); // Trigger click event
+        }
+        
+        // Handle Space key (keyCode 32 or key ' ')
+        if (event.key === ' ' || event.keyCode === 32) {
+            event.preventDefault();
+            this.click(); // Trigger click event
+        }
+        });
+    }
+
+     updateButtonContent() {
+    const anchor = this.shadowRoot?.querySelector('a');
+    if (!anchor) return;
+
+    // Handle disabled attribute
+    const isDisabled = this.hasAttribute('disabled');
+    
+    if (isDisabled) {
+      // Set disabled attributes and styles
+      anchor.setAttribute('aria-disabled', 'true');
+      anchor.setAttribute('tabindex', '-1');
+      anchor.removeAttribute('href'); // Remove href to prevent navigation
+      anchor.style.pointerEvents = 'none';
+      anchor.style.cursor = 'not-allowed';
+      
+      // Prevent all anchor click events when disabled
+      anchor.onclick = (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        e.stopImmediatePropagation();
+        return false;
+      };
+    } else {
+      // Enable the button
+      anchor.removeAttribute('aria-disabled');
+      anchor.setAttribute('tabindex', '0');
+      anchor.setAttribute('href', this.getAttribute('href') || '#');
+      anchor.style.pointerEvents = '';
+      anchor.style.cursor = '';
+      anchor.onclick = null;
+    }
+}
 
     attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
         const anchor = this.shadowRoot?.querySelector('a');
@@ -96,6 +148,7 @@ class ButtonComponent extends BaseComponent {
             anchor.removeAttribute('aria-disabled');
             anchor.tabIndex = 0;
         }
+    
     }
 }
 
