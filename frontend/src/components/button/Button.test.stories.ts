@@ -4,13 +4,13 @@ import type { Meta, StoryObj } from '@storybook/html';
 import { ButtonArgs, Template, defaultArgs, argTypes } from './Button.shared';
 
 const meta: Meta<ButtonArgs> = {
-  title: 'Components/Button/Tests',
+  title: 'Elements/Button/Tests',
   tags: ['!autodocs'], // Exclude from main docs
   parameters: {
     controls: { disable: true }, // Disable controls for test stories
   },
-  args: defaultArgs, // Use shared default args
-  argTypes // Use shared argTypes
+  args: defaultArgs // Use shared default args
+
 };
 
 export default meta;

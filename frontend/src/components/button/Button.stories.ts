@@ -1,11 +1,10 @@
 import type { Meta, StoryObj } from '@storybook/html';
-import { ButtonArgs, Template, defaultArgs, argTypes } from './Button.shared';
+import { ButtonArgs, Template, defaultArgs } from './Button.shared';
 
 const meta: Meta<ButtonArgs> = {
-  title: 'Components/Button',
+  title: 'Elements/Button',
   tags: ['autodocs'],
-  args: defaultArgs,
-  argTypes
+  args: defaultArgs
 };
 
 export default meta;
@@ -48,4 +47,3 @@ export const Disabled: Story = {
     disabled: true
   }
 };
-
