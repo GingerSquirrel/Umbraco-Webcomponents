@@ -54,13 +54,15 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler', // New in recent versions
-        includePaths: [path.resolve(__dirname, 'src')],
+        includePaths: [path.resolve(__dirname, 'src/global/styles'), path.resolve(__dirname, 'src')],
         additionalData: `
           $umb: ${process.env.VITE_UMB === 'true'};
-          @use "/global/styles/mixins.scss" as *;
-          @use "/global/styles/typography.scss" as *;
-          @use "/global/styles/fonts.scss" as *;
-          @use "/global/styles/shadows.scss" as *;
+          @use "${path.resolve(__dirname, 'src/global/styles/variables').replace(/\\/g, '/')}" as *;
+          @use "${path.resolve(__dirname, 'src/global/styles/base').replace(/\\/g, '/')}" as *;
+          @use "${path.resolve(__dirname, 'src/global/styles/mixins').replace(/\\/g, '/')}" as *;
+          @use "${path.resolve(__dirname, 'src/global/styles/typography').replace(/\\/g, '/')}" as *;
+          @use "${path.resolve(__dirname, 'src/global/styles/fonts').replace(/\\/g, '/')}" as *;
+          @use "${path.resolve(__dirname, 'src/global/styles/shadows').replace(/\\/g, '/')}" as *;
         `
         // Remove SCSS imports until files exist
       }

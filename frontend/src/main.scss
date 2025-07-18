@@ -1,10 +1,5 @@
 // @use './components/mycomponent/MyComponent.scss';
-@use './global/styles/base.scss';
-@use './global/styles/variables.scss';
-@use './global/styles/typography.scss';
-@use './global/styles/shadows.scss';
-
-
+// Removed individual @use statements - now handled globally by Vite config additionalData
 
 // menu-component::part(div){
 //     h1{
