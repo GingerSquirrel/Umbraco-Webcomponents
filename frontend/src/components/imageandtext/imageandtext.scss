@@ -1,10 +1,11 @@
 :host{
     display: flex;
     text-align: left;
-    @include container;
     align-items: center;
     justify-content: space-around;
     flex-direction: column;
+    
+    @include container;
     @include desktop{
         flex-direction: row;
     }

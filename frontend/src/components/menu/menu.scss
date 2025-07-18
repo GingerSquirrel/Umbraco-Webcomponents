@@ -5,24 +5,25 @@
     height: 84px;
     background-color: var(--Neutral-Silver);
     > div{
-        @include container;
         //padding: 0px 144px;
         display: flex;
         align-items: center;
         justify-content: space-between;
         flex-direction: row;
+        
+        @include container;
     }
 }
 
 nav{
     display: none;
-    @include desktop {
-        display: inline-flex;
-    }
-    
     justify-content: center;
     align-items: center;
     gap: 50px;
+    
+    @include desktop {
+        display: inline-flex;
+    }
 
     a{
         @include body-2;
@@ -33,9 +34,10 @@ nav{
 
 .buttons{
     display: none;
+    flex-direction: row;
+    gap: 14px;
+    
     @include tablet {
         display: flex;
     }
-    flex-direction: row;
-    gap: 14px;
 }

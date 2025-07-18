@@ -4,9 +4,10 @@
     background-color: var(--Neutral-Silver);
    
     > div{
-        @include container;
         display: flex;
         flex-direction: column;
+        
+        @include container;
         @include desktop {
             flex-direction: row;
                     gap: 78px;

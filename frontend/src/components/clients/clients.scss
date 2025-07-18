@@ -1,13 +1,13 @@
 
 :host{
     display: flex;
-    @include container;
-    display: flex;
     align-items: center;
     justify-content: space-between;
     flex-direction: column;
     text-align: center;
     gap:16px;
+    
+    @include container;
         
 }
 
