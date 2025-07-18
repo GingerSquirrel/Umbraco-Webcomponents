@@ -55,15 +55,24 @@ export default defineConfig({
       scss: {
         api: 'modern-compiler', // New in recent versions
         includePaths: [path.resolve(__dirname, 'src/global/styles'), path.resolve(__dirname, 'src')],
-        additionalData: `
-          $umb: ${process.env.VITE_UMB === 'true'};
-          @use "${path.resolve(__dirname, 'src/global/styles/variables').replace(/\\/g, '/')}" as *;
-          @use "${path.resolve(__dirname, 'src/global/styles/base').replace(/\\/g, '/')}" as *;
-          @use "${path.resolve(__dirname, 'src/global/styles/mixins').replace(/\\/g, '/')}" as *;
-          @use "${path.resolve(__dirname, 'src/global/styles/typography').replace(/\\/g, '/')}" as *;
-          @use "${path.resolve(__dirname, 'src/global/styles/fonts').replace(/\\/g, '/')}" as *;
-          @use "${path.resolve(__dirname, 'src/global/styles/shadows').replace(/\\/g, '/')}" as *;
-        `
+        additionalData: (content, filename) => {
+          // Don't inject imports into the global style files themselves to avoid circular dependencies
+          const isGlobalStyleFile = filename.includes('global/styles/');
+          if (isGlobalStyleFile) {
+            return `$umb: ${process.env.VITE_UMB === 'true'};\n${content}`;
+          }
+          
+          return `
+            $umb: ${process.env.VITE_UMB === 'true'};
+            @use "${path.resolve(__dirname, 'src/global/styles/variables').replace(/\\/g, '/')}" as *;
+            @use "${path.resolve(__dirname, 'src/global/styles/base').replace(/\\/g, '/')}" as *;
+            @use "${path.resolve(__dirname, 'src/global/styles/mixins').replace(/\\/g, '/')}" as *;
+            @use "${path.resolve(__dirname, 'src/global/styles/typography').replace(/\\/g, '/')}" as *;
+            @use "${path.resolve(__dirname, 'src/global/styles/fonts').replace(/\\/g, '/')}" as *;
+            @use "${path.resolve(__dirname, 'src/global/styles/shadows').replace(/\\/g, '/')}" as *;
+            ${content}
+          `;
+        }
         // Remove SCSS imports until files exist
       }
     }
