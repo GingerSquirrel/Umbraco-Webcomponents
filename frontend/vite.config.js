@@ -20,6 +20,7 @@ export default defineConfig({
     // Removed basicSsl() as we're using manual HTTPS configuration
   ],
   root: 'src',
+  publicDir: '../public', // Point to the correct public directory
   base: '/',
   build: {
     outDir: '../dist',
@@ -34,6 +35,7 @@ export default defineConfig({
   },
   server: {
     port: 3000,
+    strictPort: true, // Force port 3000, don't switch to another port
     host: true,
     ...(certsExist && {
       https: {
@@ -171,7 +173,6 @@ export default defineConfig({
       all: true
     },
     environment: 'jsdom',
-    globals: true,
     setupFiles: ['./test/setup.ts']
   }
 });
