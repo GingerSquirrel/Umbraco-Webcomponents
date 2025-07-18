@@ -6,7 +6,8 @@ import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
 import basicSsl from '@vitejs/plugin-basic-ssl';
 
-const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   plugins: [
@@ -45,7 +46,7 @@ export default defineConfig({
     preprocessorOptions: {
       scss: {
         api: 'modern-compiler', // New in recent versions
-        includePaths: [path.resolve(dirname, 'src')],
+        includePaths: [path.resolve(__dirname, 'src')],
         additionalData: `
           $umb: ${process.env.VITE_UMB === 'true'};
           @use "/global/styles/mixins.scss" as *;
@@ -81,7 +82,7 @@ export default defineConfig({
         extends: true,
         plugins: [
           storybookTest({
-            configDir: path.join(dirname, '.storybook')
+            configDir: path.join(__dirname, '.storybook')
           })
         ],
         test: {
@@ -107,7 +108,7 @@ export default defineConfig({
               }
             }
           },
-          setupFiles: [path.resolve(dirname, '.storybook/vitest.setup.ts')],
+          setupFiles: [path.resolve(__dirname, '.storybook/vitest.setup.ts')],
           testTimeout: 60000,
           hookTimeout: 30000
         }

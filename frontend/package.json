@@ -2,6 +2,7 @@
   "name": "webcomponents-vite-project",
   "version": "1.0.0",
   "description": "A project to demonstrate web components using Vite.",
+  "type": "module",
   "main": "src/main.js",
   "scripts": {
     "dev": "vite",
