@@ -169,7 +169,79 @@ chrome.exe --ignore-certificate-errors --ignore-ssl-errors --allow-running-insec
 
 ---
 
-## 🛠 Usage
+## � Progressive Web App (PWA)
+
+This project is configured as a PWA with offline support, installability, and optimized caching.
+
+### PWA Features
+
+- **📦 App Shell Caching**: Core files (HTML, JS, CSS) cached for instant loading
+- **🔤 Google Fonts Caching**: Inter font family cached for offline use
+- **🖼️ Asset Caching**: Images, icons, and SVGs cached intelligently
+- **📱 Installable**: Can be installed on mobile and desktop devices
+- **⚡ Offline Support**: Works without internet connection
+- **🔄 Background Updates**: New versions download automatically
+
+### Installing the PWA
+
+#### On Desktop (Chrome/Edge):
+1. Visit the app in your browser
+2. Look for the install icon (⬇️) in the address bar
+3. Click "Install App" button that appears on the page
+4. Choose "Install" in the browser prompt
+
+#### On Mobile:
+1. Open the app in Chrome/Safari
+2. Tap the share button
+3. Select "Add to Home Screen"
+4. The app will appear as a native app icon
+
+### Service Worker Caching Strategy
+
+The service worker uses a multi-tier caching approach:
+
+#### Static Cache (`static-v1`)
+- Core app files (HTML, manifest, PWA icons)
+- **Web components bundle** (all TypeScript components compiled to JS)
+- **Google Fonts** (Inter font family)
+- Critical CSS files
+
+#### Dynamic Cache (`dynamic-v1`)
+- Component images and SVGs
+- Other fonts and assets
+- Cached on first request
+
+#### Google Fonts Caching
+The service worker specifically handles Google Fonts from `fonts.gstatic.com`:
+
+```javascript
+// Cached Google Fonts:
+- Inter (latin-ext): UcCo3FwrK3iLTcvsYwYL8g.woff2
+- Inter (latin): UcCo3FwrK3iLTcviYwY.woff2
+```
+
+**Benefits:**
+- ⚡ **Instant font loading** - No FOUT (Flash of Unstyled Text)
+- 🔌 **Offline typography** - Fonts work without internet
+- 🚀 **Performance** - No external font requests after first load
+
+### Testing PWA Features
+
+1. **Cache Inspection**:
+   - Open DevTools (F12) → Application → Cache Storage
+   - Check `static-v1` and `dynamic-v1` caches
+
+2. **Offline Testing**:
+   - DevTools → Network → Check "Offline"
+   - Refresh the page - should load instantly from cache
+
+3. **Install Prompt**:
+   - Look for install button on the page
+   - Check for browser install prompt
+
+---
+
+## �🛠 Usage
 
 - The main entry point is `src/index.html`, which loads your main script.
 - Add or modify components in the `src/components` directory.

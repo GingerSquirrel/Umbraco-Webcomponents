@@ -160,20 +160,36 @@ export class PWAUtils {
 
     private static showInstallButton(): void {
         const installButton = document.createElement('button');
-        installButton.textContent = 'Install App';
+        installButton.textContent = '📱 Install App';
         installButton.id = 'pwa-install-btn';
         installButton.style.cssText = `
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 1000;
-            padding: 10px 15px;
-            background: #007bff;
+            padding: 12px 20px;
+            background: var(--Brand-Primary, #4CAF4F);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 12px rgba(76, 175, 79, 0.3);
+            transition: all 0.3s ease;
         `;
+        
+        // Add hover effects
+        installButton.addEventListener('mouseenter', () => {
+            installButton.style.transform = 'translateY(-2px)';
+            installButton.style.boxShadow = '0 6px 16px rgba(76, 175, 79, 0.4)';
+        });
+        
+        installButton.addEventListener('mouseleave', () => {
+            installButton.style.transform = 'translateY(0)';
+            installButton.style.boxShadow = '0 4px 12px rgba(76, 175, 79, 0.3)';
+        });
         
         installButton.addEventListener('click', async () => {
             const accepted = await this.promptInstall();
