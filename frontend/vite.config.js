@@ -26,8 +26,15 @@ export default defineConfig({
     outDir: '../dist',
     emptyOutDir: false,
     rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'src/index.html'),
+        sw: path.resolve(__dirname, 'src/sw.js') // Include service worker in build
+      },
       output: {
-        entryFileNames: 'assets/[name].js',
+        entryFileNames: (chunkInfo) => {
+          // Keep service worker at root level
+          return chunkInfo.name === 'sw' ? '[name].js' : 'assets/[name].js';
+        },
         chunkFileNames: 'assets/[name].js',
         assetFileNames: 'assets/[name][extname]'
       }
