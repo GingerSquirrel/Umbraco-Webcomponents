@@ -9,6 +9,12 @@ import basicSsl from '@vitejs/plugin-basic-ssl';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Check if we're in development and certificates exist
+const isDev = process.env.NODE_ENV !== 'production';
+const certKeyPath = path.resolve(__dirname, 'certs/localhost+2-key.pem');
+const certPath = path.resolve(__dirname, 'certs/localhost+2.pem');
+const certsExist = isDev && fs.existsSync(certKeyPath) && fs.existsSync(certPath);
+
 export default defineConfig({
   plugins: [
     // Removed basicSsl() as we're using manual HTTPS configuration
@@ -29,10 +35,12 @@ export default defineConfig({
   server: {
     port: 3000,
     host: true,
-    https: {
-      key: fs.readFileSync(path.resolve(__dirname, 'certs/localhost+2-key.pem')),
-      cert: fs.readFileSync(path.resolve(__dirname, 'certs/localhost+2.pem'))
-    },
+    ...(certsExist && {
+      https: {
+        key: fs.readFileSync(certKeyPath),
+        cert: fs.readFileSync(certPath)
+      }
+    }),
     historyApiFallback: false,
     headers: {
       'Service-Worker-Allowed': '/'
