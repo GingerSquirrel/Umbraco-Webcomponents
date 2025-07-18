@@ -1,0 +1,36 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+@using Umbraco.Cms.Core.Models
+@{
+    QuoteModule content = Model.Content as QuoteModule;
+    QuoteModuleSettings settings = Model.Settings as QuoteModuleSettings;
+}
+<!-- Quote Module -->
+<quote-component>
+<div>
+    <div class="image">
+        @if(content.Image != null && content.Image.Url() != null){
+            <img src="@content.Image.Url()" alt="Quote Image" />
+        }
+    </div>
+    <div class="content">
+        @if(!content.Quote.IsNullOrWhiteSpace()){
+           <p>@content.Quote</p>
+        }
+        <h3>@content.Author</h3>
+        <h4>@content.AuthorAssociation</h4>
+        <div class="logos">
+            @foreach(var icon in content.Icons){
+
+                if(icon != null && icon.Url() != null){
+                    <img src="@icon.Url()" alt="Logo" />
+                }
+
+            }
+            @Html.GetBlockListHtml(content.Button)
+        </div>
+    </div>
+</div>
+
+</quote-component>
+

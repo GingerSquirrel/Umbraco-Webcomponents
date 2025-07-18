@@ -1,15 +1,29 @@
 import './main.scss'; // Import your SCSS file
 import './components/mycomponent/MyComponent.js'; 
-import './components/menu/menu.js'; // Import the MenuComponent
-import './components/button/button.js'; // Import the ButtonComponent
-import './components/hero/hero.js'; // Import the HeroComponent
-import './components/clients/clients.js'; // Import the ClientsComponent
-import './components/community/community.js'; // Import the CommunityComponent
-import './components/imageandtext/imageandtext.js'; // Import the ImageAndTextComponent
-import './components/achievements/achievements.js'; // Import the AchievementsComponent
-import './components/quote/quote.js'; // Import the QuoteComponent
+import './components/button/button';
+import './components/achievements/achievements';
+import './components/clients/clients';
+import './components/community/community';
+import './components/hero/hero';
+import './components/imageandtext/imageandtext';
+import './components/menu/menu';
+import './components/quote/quote';
+import './components/cards/cards';
 
+import { PWAUtils } from './utils/pwa.js';
 
-// const app = document.createElement('div');
-// app.innerHTML = '<my-component></my-component>';
-// document.body.appendChild(app);
+// Initialize PWA features
+document.addEventListener('DOMContentLoaded', async () => {
+    // Register service worker
+    await PWAUtils.registerServiceWorker();
+    
+    // Setup install prompt
+    PWAUtils.setupInstallPrompt();
+    
+    // Request notification permission if needed
+    if (!PWAUtils.isStandalone()) {
+        await PWAUtils.requestNotificationPermission();
+    }
+    
+    console.log('PWA initialized');
+});

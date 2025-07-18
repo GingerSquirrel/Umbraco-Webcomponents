@@ -1,12 +1,17 @@
 /// <reference types="vitest/config" />
 import { defineConfig } from 'vite';
-import path from 'node:path';
+import fs from 'fs';
+import path from 'path';
 import { fileURLToPath } from 'node:url';
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+import basicSsl from '@vitejs/plugin-basic-ssl';
 
 const dirname = typeof __dirname !== 'undefined' ? __dirname : path.dirname(fileURLToPath(import.meta.url));
 
 export default defineConfig({
+  plugins: [
+    // Removed basicSsl() as we're using manual HTTPS configuration
+  ],
   root: 'src',
   base: '/',
   build: {
@@ -21,19 +26,34 @@ export default defineConfig({
     }
   },
   server: {
-    port: 3000
+    port: 3000,
+    host: true,
+    https: {
+      key: fs.readFileSync(path.resolve(__dirname, 'certs/localhost+2-key.pem')),
+      cert: fs.readFileSync(path.resolve(__dirname, 'certs/localhost+2.pem'))
+    },
+    historyApiFallback: false,
+    headers: {
+      'Service-Worker-Allowed': '/'
+    }
+  },
+  // Ensure service worker is served with correct MIME type
+  define: {
+    'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development')
   },
   css: {
     preprocessorOptions: {
       scss: {
-        includePaths: [path.resolve(__dirname, 'src')],
+        api: 'modern-compiler', // New in recent versions
+        includePaths: [path.resolve(dirname, 'src')],
         additionalData: `
           $umb: ${process.env.VITE_UMB === 'true'};
-          @use "global/styles/mixins.scss" as *;
-          @use "global/styles/typography.scss" as *;
-          @use "global/styles/fonts.scss" as *;
-          @use "global/styles/shadows.scss" as *;
+          @use "/global/styles/mixins.scss" as *;
+          @use "/global/styles/typography.scss" as *;
+          @use "/global/styles/fonts.scss" as *;
+          @use "/global/styles/shadows.scss" as *;
         `
+        // Remove SCSS imports until files exist
       }
     }
   },
@@ -51,7 +71,7 @@ export default defineConfig({
           globals: true,
           environmentOptions: {
             jsdom: {
-              url: 'http://localhost:3000'
+              url: 'https://localhost:3000'
             }
           }
         }
@@ -80,7 +100,9 @@ export default defineConfig({
                 args: [
                   '--no-sandbox',
                   '--disable-setuid-sandbox',
-                  '--disable-dev-shm-usage'
+                  '--disable-dev-shm-usage',
+                  '--ignore-certificate-errors',
+                  '--allow-running-insecure-content'
                 ]
               }
             }
@@ -91,9 +113,8 @@ export default defineConfig({
         }
       }
     ],
-    // Coverage configuration
     coverage: {
-      provider: 'v8', // or 'c8' for older versions
+      provider: 'v8',
       reporter: ['text', 'json', 'html', 'lcov'],
       reportsDirectory: './coverage',
       exclude: [
@@ -112,7 +133,6 @@ export default defineConfig({
         '!src/**/*.test.@(js|jsx|ts|tsx)',
         '!src/**/*.spec.@(js|jsx|ts|tsx)'
       ],
-      // Set coverage thresholds
       thresholds: {
         global: {
           branches: 80,
@@ -120,7 +140,6 @@ export default defineConfig({
           lines: 80,
           statements: 80
         },
-        // Per-file thresholds
         'src/components/**/*.{js,ts}': {
           branches: 90,
           functions: 90,
@@ -128,11 +147,10 @@ export default defineConfig({
           statements: 90
         }
       },
-      // Fail if coverage is below thresholds
       skipFull: false,
       all: true
     },
-    environment: 'jsdom', // For web components testing
+    environment: 'jsdom',
     globals: true,
     setupFiles: ['./test/setup.ts']
   }

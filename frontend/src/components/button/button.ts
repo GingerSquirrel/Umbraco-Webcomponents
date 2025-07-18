@@ -3,11 +3,11 @@ const UMB = import.meta.env.VITE_UMB === 'true';
 import styles from './button.scss?inline';
 import template from './button.html?raw';
 import { BaseComponent } from '../BaseComponent';
-import arrowRightIcon from '../../global/images/icon-right.svg?raw'; // Import SVG as raw string
+import arrowRightIcon from '../../global/images/icon-right.svg?raw';
 
 const iconSvgs: Record<string, string> = {
     'right': arrowRightIcon,
-    // Add more icons as needed, e.g. 'down': downIcon
+    // Add more icons as needed
 };
 
 class ButtonComponent extends BaseComponent {
@@ -18,81 +18,101 @@ class ButtonComponent extends BaseComponent {
     constructor() {
         super(template, styles);
         this.setupKeyboardHandling();
-        this.updateButtonContent();
     }
 
-      setupKeyboardHandling() {
-        // Add keyboard event handling after the component is created
+    setupKeyboardHandling() {
         this.addEventListener('keydown', (event) => {
-        // Handle Enter key (keyCode 13 or key 'Enter')
-        if (event.key === 'Enter' || event.keyCode === 13) {
-            event.preventDefault();
-            this.click(); // Trigger click event
-        }
-        
-        // Handle Space key (keyCode 32 or key ' ')
-        if (event.key === ' ' || event.keyCode === 32) {
-            event.preventDefault();
-            this.click(); // Trigger click event
-        }
+            if (event.key === 'Enter' || event.key === ' ') {
+                event.preventDefault();
+                this.click();
+            }
         });
     }
 
-     updateButtonContent() {
-    const anchor = this.shadowRoot?.querySelector('a');
-    if (!anchor) return;
-
-    // Handle disabled attribute
-    const isDisabled = this.hasAttribute('disabled');
-    
-    if (isDisabled) {
-      // Set disabled attributes and styles
-      anchor.setAttribute('aria-disabled', 'true');
-      anchor.setAttribute('tabindex', '-1');
-      anchor.removeAttribute('href'); // Remove href to prevent navigation
-      anchor.style.pointerEvents = 'none';
-      anchor.style.cursor = 'not-allowed';
-      
-      // Prevent all anchor click events when disabled
-      anchor.onclick = (e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        e.stopImmediatePropagation();
-        return false;
-      };
-    } else {
-      // Enable the button
-      anchor.removeAttribute('aria-disabled');
-      anchor.setAttribute('tabindex', '0');
-      anchor.setAttribute('href', this.getAttribute('href') || '#');
-      anchor.style.pointerEvents = '';
-      anchor.style.cursor = '';
-      anchor.onclick = null;
+    async loadSvgFromUrl(url: string): Promise<string> {
+        try {
+            const response = await fetch(url);
+            if (response.ok) {
+                return await response.text();
+            }
+        } catch (error) {
+            console.warn(`Failed to load SVG from ${url}:`, error);
+        }
+        // Fallback to image if SVG loading fails
+        return `<img src="${url}" alt="icon" class="icon-img">`;
     }
-}
+
+    async updateLabelWithIcon() {
+        const anchor = this.shadowRoot?.querySelector('a');
+        if (!anchor) return;
+
+        const label = this.getAttribute('label') ?? '';
+        const icon = this.getAttribute('icon');
+
+        if (!icon) {
+            anchor.textContent = label;
+            return;
+        }
+
+        let iconMarkup = '';
+        
+        if (iconSvgs[icon]) {
+            // Use predefined SVG
+            iconMarkup = iconSvgs[icon];
+        } else if (icon.toLowerCase().endsWith('.svg')) {
+            // Load SVG from URL
+            iconMarkup = await this.loadSvgFromUrl(icon);
+        } else {
+            // Use icon as URL for image
+            iconMarkup = `<img src="${icon}" alt="icon" class="icon-img">`;
+        }
+
+        anchor.innerHTML = `<span>${label}</span> ${iconMarkup}`;
+        
+        // Add CSS class to SVG elements
+        const svg = anchor.querySelector('svg');
+        if (svg) {
+            svg.classList.add('icon-svg');
+        }
+    }
+
+    updateDisabledState() {
+        const anchor = this.shadowRoot?.querySelector('a');
+        if (!anchor) return;
+
+        const isDisabled = this.hasAttribute('disabled');
+        
+        if (isDisabled) {
+            anchor.setAttribute('aria-disabled', 'true');
+            anchor.setAttribute('tabindex', '-1');
+            anchor.removeAttribute('href');
+            anchor.style.pointerEvents = 'none';
+            anchor.style.cursor = 'not-allowed';
+            
+            anchor.onclick = (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                e.stopImmediatePropagation();
+                return false;
+            };
+        } else {
+            anchor.removeAttribute('aria-disabled');
+            anchor.setAttribute('tabindex', '0');
+            anchor.setAttribute('href', this.getAttribute('href') || '#');
+            anchor.style.pointerEvents = '';
+            anchor.style.cursor = '';
+            anchor.onclick = null;
+        }
+    }
 
     attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
         const anchor = this.shadowRoot?.querySelector('a');
         if (!anchor) return;
 
-        // Helper to update label with inline SVG if icon attribute is present
-        const updateLabelWithIcon = () => {
-            const label = this.getAttribute('label') ?? '';
-            const icon = this.getAttribute('icon');
-            if (icon && iconSvgs[icon]) {
-                anchor.innerHTML = `<span>${label}</span> ${iconSvgs[icon]}`;
-                // Optionally add class to the SVG
-                const svg = anchor.querySelector('svg');
-                if (svg) svg.classList.add('icon-svg');
-            } else {
-                anchor.textContent = label;
-            }
-        };
-
         switch (name) {
             case 'label':
             case 'icon':
-                updateLabelWithIcon();
+                this.updateLabelWithIcon();
                 break;
             case 'class':
                 anchor.className = newValue ?? '';
@@ -104,51 +124,32 @@ class ButtonComponent extends BaseComponent {
                 anchor.setAttribute('data-icon-position', newValue ?? '');
                 break;
             case 'href':
-                anchor.setAttribute('href', newValue ?? '#');
+                if (!this.hasAttribute('disabled')) {
+                    anchor.setAttribute('href', newValue ?? '#');
+                }
                 break;
             case 'target':
                 anchor.setAttribute('target', newValue ?? '_self');
                 break;
             case 'disabled':
-                if (newValue !== null) {
-                    anchor.setAttribute('aria-disabled', 'true');
-                    anchor.tabIndex = -1;
-                } else {
-                    anchor.removeAttribute('aria-disabled');
-                    anchor.tabIndex = 0;
-                }
+                this.updateDisabledState();
                 break;
         }
     }
 
-    connectedCallback() {
+    async connectedCallback() {
         const anchor = this.shadowRoot?.querySelector('a');
         if (!anchor) return;
 
-        const label = this.getAttribute('label') ?? '';
-        const icon = this.getAttribute('icon');
-        if (icon && iconSvgs[icon]) {
-            anchor.innerHTML = `<span>${label}</span> ${iconSvgs[icon]}`;
-            const svg = anchor.querySelector('svg');
-            if (svg) svg.classList.add('icon-svg');
-        } else {
-            anchor.textContent = label;
-        }
-
+        // Initialize all attributes
+        await this.updateLabelWithIcon();
+        
         anchor.className = this.getAttribute('class') ?? '';
         anchor.setAttribute('data-size', this.getAttribute('size') ?? '');
-        anchor.setAttribute('data-icon', icon ?? '');
         anchor.setAttribute('data-icon-position', this.getAttribute('icon-position') ?? '');
-        anchor.setAttribute('href', this.getAttribute('href') ?? '#');
         anchor.setAttribute('target', this.getAttribute('target') ?? '_self');
-        if (this.hasAttribute('disabled')) {
-            anchor.setAttribute('aria-disabled', 'true');
-            anchor.tabIndex = -1;
-        } else {
-            anchor.removeAttribute('aria-disabled');
-            anchor.tabIndex = 0;
-        }
-    
+        
+        this.updateDisabledState();
     }
 }
 

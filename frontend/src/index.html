@@ -3,11 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Web Components Vite Project</title>
+    <title>Web Components PWA</title>
+    
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="A Progressive Web App built with Web Components">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="WC App">
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json">
+    
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/icons/icon-180x180.png">
     <link rel="stylesheet" href="./main.scss">
 </head>
 <body>
-
+    <div id="app">
         <!-- <my-component></my-component> -->
         <menu-component></menu-component>
         <hero-component></hero-component>
@@ -17,9 +34,11 @@
         <achievements-component></achievements-component>
         <imageAndText-component></imageAndText-component>
         <quote-component></quote-component>
-        
-
-
+        <cards-component></cards-component>
+        <button-component label="Get Started" class="primary"></button-component>
+    </div>
+    
+    <!-- Change this line: remove /src/ since root is already 'src' -->
     <script type="module" src="./main.ts"></script>
 </body>
 </html>

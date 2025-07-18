@@ -12,7 +12,8 @@
     label="@content.Link.Name"
     class="@content.Style"
     size="@content.Size"
-    icon="@content.Icon"
+    @Html.Raw(content.Icon != null && content.Icon.Url() != null ? "icon=\""+content.Icon.Url()+"\"" : "icon=\"\"")
+
     icon-position="@content.IconPosition">
 
     <a role="button"></a>

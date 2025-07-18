@@ -20,6 +20,13 @@ Thumbs.db
 .env
 .env.*
 
+# SSL Certificates (for local development only)
+certs/*.pem
+certs/*.key
+
+# Utility files
+generate-icons.html
+
 # Editor directories and files
 .vscode/
 .idea/
