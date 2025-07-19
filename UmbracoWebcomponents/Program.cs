@@ -7,6 +7,7 @@ builder.CreateUmbracoBuilder()
     .Build();
 
 builder.Services.AddScoped<UmbracoWebcomponents.Services.HeaderFooterService>();
+builder.Services.AddScoped<UmbracoWebcomponents.Services.CriticalCssService>();
 
 WebApplication app = builder.Build();
 

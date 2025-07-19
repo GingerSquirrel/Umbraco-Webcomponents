@@ -1,0 +1,52 @@
+// Critical SCSS for FOUC Prevention
+// This file generates critical.css for inlining in HTML
+
+// Component list for FOUC prevention
+$components: 
+    'achievements',
+    'button', 
+    'cards',
+    'clients',
+    'community',
+    'hero', 
+    'imageAndText',
+    'menu', 
+    'mycomponent',
+    'quote';
+
+/* Critical CSS: FOUC Prevention - Hide components until they are defined */
+@each $component in $components {
+    #{$component}-component:not(:defined) {
+        display: none;
+    }
+}
+
+/* Base styles that need to load immediately */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Loading indicator while components are being defined */
+.loading-components {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh;
+    font-size: 1.2rem;
+    color: #666;
+}
+
+/* Prevent layout shifts during component loading */
+*:not(:defined) {
+    visibility: hidden;
+}
+
+/* But allow our specific components to use display: none for better control */
+@each $component in $components {
+    #{$component}-component:not(:defined) {
+        visibility: visible;
+        display: none;
+    }
+}

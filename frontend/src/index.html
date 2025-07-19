@@ -21,6 +21,23 @@
     <link rel="icon" type="image/png" sizes="32x32" href="/icons/icon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="/icons/icon-16x16.png">
     <link rel="apple-touch-icon" href="/icons/icon-180x180.png">
+    
+    <!-- Critical CSS: FOUC Prevention - Hide components until they are defined -->
+    <style>
+        achievements-component:not(:defined),
+        button-component:not(:defined),
+        cards-component:not(:defined),
+        clients-component:not(:defined),
+        community-component:not(:defined),
+        hero-component:not(:defined),
+        imageAndText-component:not(:defined),
+        menu-component:not(:defined),
+        mycomponent-component:not(:defined),
+        quote-component:not(:defined) {
+            display: none;
+        }
+    </style>
+    
     <link rel="stylesheet" href="./main.scss">
 </head>
 <body>

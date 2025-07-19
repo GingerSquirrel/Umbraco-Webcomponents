@@ -15,15 +15,43 @@ const certKeyPath = path.resolve(__dirname, 'certs/localhost+2-key.pem');
 const certPath = path.resolve(__dirname, 'certs/localhost+2.pem');
 const certsExist = isDev && fs.existsSync(certKeyPath) && fs.existsSync(certPath);
 
+// Determine base path based on environment
+const isUmbracoMode = process.env.VITE_UMB === 'true';
+const basePath = isUmbracoMode ? './' : '/';
+
+// Plugin to fix manifest.json paths for Umbraco
+const fixManifestPaths = () => {
+  return {
+    name: 'fix-manifest-paths',
+    generateBundle(options, bundle) {
+      // Find the manifest file in the bundle
+      const manifestFile = Object.keys(bundle).find(fileName => 
+        fileName.includes('manifest.json')
+      );
+      
+      if (manifestFile && isUmbracoMode) {
+        const manifest = JSON.parse(bundle[manifestFile].source);
+        // Update icon paths to be relative
+        manifest.icons = manifest.icons.map(icon => ({
+          ...icon,
+          src: icon.src.replace(/^\//, './')
+        }));
+        bundle[manifestFile].source = JSON.stringify(manifest, null, 2);
+      }
+    }
+  };
+};
+
 export default defineConfig({
   plugins: [
     // Removed basicSsl() as we're using manual HTTPS configuration
+    fixManifestPaths()
   ],
   root: 'src',
   publicDir: '../public', // Point to the correct public directory
-  base: '/',
+  base: basePath,
   build: {
-    outDir: '../dist',
+    outDir: isUmbracoMode ? '../../UmbracoWebcomponents/wwwroot' : '../dist',
     emptyOutDir: false,
     rollupOptions: {
       input: {

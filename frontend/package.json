@@ -6,9 +6,9 @@
   "main": "src/main.js",
   "scripts": {
     "dev": "vite",
-    "build": "vite build",
-    "build:vite": "vite build --outDir ../dist-vite",
-    "umbbuild": "set VITE_UMB=true && vite build --outDir ../../UmbracoWebComponents/wwwroot",
+    "build": "npm run build:critical:dist && vite build",
+    "build:vite": "npm run build:critical:dist-vite && vite build --outDir ../dist-vite",
+    "umbbuild": "npm run build:critical:umb && cross-env VITE_UMB=true vite build",
     "serve": "vite preview",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build --output-dir dist/storybook",
@@ -22,7 +22,13 @@
     "test:coverage": "vitest run --coverage",
     "test:coverage:watch": "vitest --coverage",
     "test:coverage:ui": "vitest --coverage --ui",
-    "test:coverage:report": "vitest run --coverage && open coverage/index.html"
+    "test:coverage:report": "vitest run --coverage && open coverage/index.html",
+
+    "build:critical:dist": "sass src/critical.scss dist/assets/critical.css --no-source-map --style=compressed",
+    "build:critical:dist-vite": "sass src/critical.scss ../dist-vite/assets/critical.css --no-source-map --style=compressed",
+    "build:critical:umb": "sass src/critical.scss ../UmbracoWebcomponents/wwwroot/assets/critical.css --no-source-map --style=compressed",
+    "build:critical:dev": "sass src/critical.scss dist/assets/critical.expanded.css --no-source-map --style=expanded",
+    "dev:critical": "sass src/critical.scss dist/assets/critical.css --no-source-map --watch"
   },
   "devDependencies": {
     "@jest/globals": "^30.0.4",
@@ -41,6 +47,7 @@
     "@vitest/coverage-v8": "^3.2.4",
     "@vitest/ui": "^3.2.4",
     "cpx": "^1.5.0",
+    "cross-env": "^7.0.3",
     "jsdom": "^26.1.0",
     "lit": "^3.3.0",
     "playwright": "^1.54.1",

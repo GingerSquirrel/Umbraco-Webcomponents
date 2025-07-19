@@ -1,6 +1,7 @@
 ﻿@using Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
 @inject UmbracoWebcomponents.Services.HeaderFooterService HeaderFooterService
+@inject UmbracoWebcomponents.Services.CriticalCssService CriticalCssService
 @{
 	Layout = null;
 }
@@ -10,8 +11,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Web Components Vite Project</title>
-  <script type="module" crossorigin src="/assets/index.js"></script>
-  <link rel="stylesheet" href="/assets/index.css">
+
+
+    <!-- PWA Meta Tags -->
+    <meta name="description" content="A Progressive Web App built with Web Components">
+    <meta name="theme-color" content="#000000">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="WC App">
+    <meta name="msapplication-TileImage" content="/icons/icon-144x144.png">
+    <meta name="msapplication-TileColor" content="#000000">
+    
+    <!-- Manifest -->
+    <link rel="manifest" href="/assets/manifest.json">
+
+    <!-- Favicons -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/assets/icons/icon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/icons/icon-16x16.png">
+    <link rel="apple-touch-icon" href="/assets/icons/icon-180x180.png">
+
+    @* Critical CSS from external file *@
+    @CriticalCssService.GetInlineCss("assets/critical.css")
+
+  <link rel="stylesheet" href="/assets/main.css">
 </head>
 <body>
 
@@ -29,8 +51,7 @@
 
 @RenderBody()
         
-
-
+<script type="module" crossorigin src="/assets/main.js"></script>
     
 </body>
 </html>

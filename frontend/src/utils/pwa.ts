@@ -4,9 +4,14 @@ export class PWAUtils {
     static async registerServiceWorker(): Promise<ServiceWorkerRegistration | null> {
         if ('serviceWorker' in navigator) {
             try {
+                // Determine service worker path based on environment
+                const isUmbracoMode = import.meta.env.VITE_UMB === 'true';
+                const swPath = isUmbracoMode ? './sw.js' : '/sw.js';
+                const swScope = isUmbracoMode ? './' : '/';
+                
                 // Enhanced registration with better error handling for development
-                const registration = await navigator.serviceWorker.register('/sw.js', {
-                    scope: '/',
+                const registration = await navigator.serviceWorker.register(swPath, {
+                    scope: swScope,
                     // Disable cache during development to avoid SSL issues
                     updateViaCache: 'none'
                 });

@@ -7,15 +7,4 @@
 //     }
 // }
 
-
-// This stop the FOUC (Flash of Unstyled Content) by hiding components until they are defined
-$components: 
-    'hero', 
-    'menu', 
-    'clients';
-
-@each $component in $components {
-    #{$component}-component:not(:defined) {
-        display: none;
-    }
-}
+// FOUC prevention is now handled by critical.scss -> critical.css -> inlined in HTML
