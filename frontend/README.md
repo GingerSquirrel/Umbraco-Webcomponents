@@ -50,6 +50,27 @@ webcomponents-vite-project
 
 ---
 
+## 🛠️ Development Tools
+
+### Service Worker Toggle
+
+The project includes a development tools panel that appears in the top-right corner during development mode. This allows you to:
+
+- **Toggle Service Worker**: Enable/disable the service worker without code changes
+- **Clear Cache**: Remove all cached data for testing
+- **Hard Reload**: Force a complete page refresh
+
+You can also disable the service worker via environment variables:
+
+```bash
+# Create .env file in frontend directory
+echo "VITE_DISABLE_SW=true" > .env
+```
+
+For more details, see [SERVICE-WORKER-TOGGLE.md](./SERVICE-WORKER-TOGGLE.md).
+
+---
+
 ## 🔒 SSL Certificate Setup for Local Development
 
 This project uses HTTPS for local development to ensure proper testing of secure features like service workers. Follow these steps to set up trusted SSL certificates:

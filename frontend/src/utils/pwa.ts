@@ -1,7 +1,61 @@
 export class PWAUtils {
     private static deferredPrompt: any = null;
+    private static isServiceWorkerDisabled = false;
+
+    /**
+     * Check if service worker is disabled via localStorage or environment
+     */
+    static isServiceWorkerDisabledLocally(): boolean {
+        // Check localStorage for user preference
+        const userDisabled = localStorage.getItem('sw-disabled') === 'true';
+        
+        // Check development environment flag
+        const devDisabled = import.meta.env.VITE_DISABLE_SW === 'true';
+        
+        // Check class property (runtime toggle)
+        return this.isServiceWorkerDisabled || userDisabled || devDisabled;
+    }
+
+    /**
+     * Toggle service worker disabled state and persist to localStorage
+     */
+    static async toggleServiceWorker(disabled: boolean): Promise<void> {
+        this.isServiceWorkerDisabled = disabled;
+        localStorage.setItem('sw-disabled', disabled.toString());
+        
+        if (disabled) {
+            await this.unregisterServiceWorker();
+            console.log('🚫 Service Worker disabled locally');
+        } else {
+            console.log('✅ Service Worker enabled locally');
+            // Reload to re-register the service worker
+            window.location.reload();
+        }
+    }
+
+    /**
+     * Unregister all service workers
+     */
+    static async unregisterServiceWorker(): Promise<void> {
+        if ('serviceWorker' in navigator) {
+            try {
+                const registrations = await navigator.serviceWorker.getRegistrations();
+                for (const registration of registrations) {
+                    await registration.unregister();
+                    console.log('Service Worker unregistered:', registration);
+                }
+            } catch (error) {
+                console.error('Failed to unregister service workers:', error);
+            }
+        }
+    }
 
     static async registerServiceWorker(): Promise<ServiceWorkerRegistration | null> {
+        // Check if service worker is disabled
+        if (this.isServiceWorkerDisabledLocally()) {
+            console.log('🚫 Service Worker registration skipped (disabled locally)');
+            return null;
+        }
         if ('serviceWorker' in navigator) {
             try {
                 // Determine service worker path based on environment

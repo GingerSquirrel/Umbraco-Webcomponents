@@ -10,11 +10,16 @@ import './components/menu/menu';
 import './components/quote/quote';
 import './components/cards/cards';
 
+// Import dev tools for development environment
+if (import.meta.env.DEV) {
+    import('./components/dev-tools/dev-tools.js');
+}
+
 import { PWAUtils } from './utils/pwa.js';
 
 // Initialize PWA features
 document.addEventListener('DOMContentLoaded', async () => {
-    // Register service worker
+    // Register service worker (will check if disabled)
     await PWAUtils.registerServiceWorker();
     
     // Setup install prompt
@@ -23,6 +28,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     // Request notification permission if needed
     if (!PWAUtils.isStandalone()) {
         await PWAUtils.requestNotificationPermission();
+    }
+    
+    // Add dev tools in development
+    if (import.meta.env.DEV) {
+        const devTools = document.createElement('dev-tools');
+        document.body.appendChild(devTools);
     }
     
     console.log('PWA initialized');

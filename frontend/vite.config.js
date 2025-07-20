@@ -31,10 +31,11 @@ const fixManifestPaths = () => {
       
       if (manifestFile && isUmbracoMode) {
         const manifest = JSON.parse(bundle[manifestFile].source);
-        // Update icon paths to be relative
+        // Update icon paths to be relative to the assets directory
+        // Since manifest.json is in assets/ and icons are in root, use ../icons/
         manifest.icons = manifest.icons.map(icon => ({
           ...icon,
-          src: icon.src.replace(/^\//, './')
+          src: icon.src.replace(/^\/icons\//, '../icons/')
         }));
         bundle[manifestFile].source = JSON.stringify(manifest, null, 2);
       }
