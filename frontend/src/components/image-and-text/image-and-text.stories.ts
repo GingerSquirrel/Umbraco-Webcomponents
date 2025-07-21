@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { ImageAndTextArgs, Template, defaultArgs, argTypes } from './ImageAndText.shared';
 // Import the component so it's registered
-import './imageandtext';
+import './image-and-text';
 
 const meta: Meta<ImageAndTextArgs> = {
   title: 'Components/ImageAndText',

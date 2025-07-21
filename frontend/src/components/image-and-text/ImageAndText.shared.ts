@@ -3,7 +3,7 @@ export interface ImageAndTextArgs {
 }
 
 export const Template = () => {
-  return `<imageandtext-component></imageandtext-component>`;
+  return `<image-and-text-component></image-and-text-component>`;
 };
 
 export const defaultArgs: ImageAndTextArgs = {

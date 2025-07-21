@@ -1,5 +1,46 @@
+:host{
+    display: flex;
+    text-align: left;
+    align-items: center;
+    justify-content: space-around;
+    flex-direction: column;
+    
+    @include container;
 
-  :host{
+}
 
-  }
+h2{
+    @include headline-2;
+    color: var(--Neutral-D_Grey);
+    text-align: center;
+}
 
+p{
+    @include body-2;
+    color: var(--Neutral-Grey);
+    text-align: center;
+}
+
+.cards{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card{
+    
+    &-image{
+        img{
+            width: 368px;
+            height: 286px;
+            border-radius: 8px;
+        }
+    }
+
+    &-content{
+
+    }
+}

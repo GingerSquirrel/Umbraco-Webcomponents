@@ -5,7 +5,7 @@ import './components/achievements/achievements';
 import './components/clients/clients';
 import './components/community/community';
 import './components/hero/hero';
-import './components/imageandtext/imageandtext';
+import './components/image-and-text/image-and-text';
 import './components/menu/menu';
 import './components/quote/quote';
 import './components/cards/cards';

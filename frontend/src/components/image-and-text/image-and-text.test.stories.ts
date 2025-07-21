@@ -19,11 +19,11 @@ type Story = StoryObj<ImageAndTextArgs>;
 export const RenderingTest: Story = {
   render: Template,
   play: async ({ canvasElement }: { canvasElement: HTMLElement }) => {
-    const imageAndTextComponent = canvasElement.querySelector('imageandtext-component');
+    const imageAndTextComponent = canvasElement.querySelector('image-and-text-component');
     
     // Test component exists
     await expect(imageAndTextComponent).toBeTruthy();
-    await expect(imageAndTextComponent?.tagName.toLowerCase()).toBe('imageandtext-component');
+    await expect(imageAndTextComponent?.tagName.toLowerCase()).toBe('image-and-text-component');
     
     // Test shadow DOM exists
     await expect(imageAndTextComponent?.shadowRoot).toBeDefined();
@@ -42,7 +42,7 @@ export const PerformanceTest: Story = {
     
     // Create multiple instances for performance testing
     for (let i = 1; i <= 9; i++) {
-      const imageAndText = document.createElement('imageandtext-component');
+      const imageAndText = document.createElement('image-and-text-component');
       imageAndText.setAttribute('data-perf', `test-${i}`);
       container.appendChild(imageAndText);
     }
@@ -52,7 +52,7 @@ export const PerformanceTest: Story = {
   play: async ({ canvasElement }) => {
     const startTime = performance.now();
     
-    const instances = canvasElement.querySelectorAll('imageandtext-component');
+    const instances = canvasElement.querySelectorAll('image-and-text-component');
     
     // Test that all instances render quickly
     await expect(instances.length).toBe(9);
@@ -79,8 +79,8 @@ export const DebugTest: Story = {
   render: () => {
     return `
       <div>
-        <p>Testing imageandtext component registration:</p>
-        <imageandtext-component></imageandtext-component>
+        <p>Testing image-and-text component registration:</p>
+        <image-and-text-component></image-and-text-component>
         <p>Component should appear above this text</p>
       </div>
     `;
@@ -88,7 +88,7 @@ export const DebugTest: Story = {
   play: async ({ canvasElement }) => {
     console.log('Canvas HTML:', canvasElement.innerHTML);
     
-    const imageAndTextComponent = canvasElement.querySelector('imageandtext-component');
+    const imageAndTextComponent = canvasElement.querySelector('image-and-text-component');
     console.log('Found component:', imageAndTextComponent);
     
     if (!imageAndTextComponent) {
