@@ -9,6 +9,7 @@ import './components/imageandtext/imageandtext';
 import './components/menu/menu';
 import './components/quote/quote';
 import './components/cards/cards';
+import './components/call-to-action/call-to-action';
 
 // Import dev tools for development environment
 if (import.meta.env.DEV) {

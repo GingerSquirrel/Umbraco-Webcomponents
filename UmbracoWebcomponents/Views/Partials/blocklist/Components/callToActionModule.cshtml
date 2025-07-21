@@ -1,0 +1,9 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using Umbraco.Cms.Web.Common.PublishedModels
+@{
+    CallToActionModule content = Model.Content as CallToActionModule;
+    CallToActionModuleSettings settings = Model.Settings as CallToActionModuleSettings;
+}
+
+<!-- CallToAction Module -->
+<call-to-action-component></call-to-action-component>
