@@ -161,7 +161,7 @@ export const argTypes = {
 ```typescript
 import type { Meta, StoryObj } from '@storybook/html';
 import { Template, defaultArgs, argTypes, [ComponentName]Args } from './[ComponentName].shared';
-import '../[component-name]';
+import './[component-name]';
 
 const meta: Meta<[ComponentName]Args> = {
   title: 'Components/[ComponentName]/Test',
@@ -213,7 +213,6 @@ import { [ComponentName]Component } from './[component-name]/[component-name]';
     hero-component:not(:defined),
     imageAndText-component:not(:defined),
     menu-component:not(:defined),
-    mycomponent-component:not(:defined),
     quote-component:not(:defined) {
         display: none;
     }

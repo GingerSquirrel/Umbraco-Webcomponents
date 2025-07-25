@@ -1,5 +1,4 @@
 import './main.scss'; // Import your SCSS file
-import './components/mycomponent/MyComponent.js'; 
 import './components/button/button';
 import './components/achievements/achievements';
 import './components/clients/clients';

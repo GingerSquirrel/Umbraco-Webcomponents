@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/html';
 import { Template, defaultArgs, argTypes, FooterArgs } from './Footer.shared';
-import '../footer';
+import './footer';
 
 const meta: Meta<FooterArgs> = {
   title: 'Components/Footer/Test',

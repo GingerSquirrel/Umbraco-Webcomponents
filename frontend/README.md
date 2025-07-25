@@ -12,11 +12,7 @@ webcomponents-vite-project
 │   ├── index.html                  # Main HTML file
 │   ├── main.ts                     # Main TypeScript entry
 │   └── components
-│       ├── mycomponent
-│       │    ├── MyComponent.js     # Example custom web component
-│       │    ├── MyComponent.scss   # Component-specific styles (optional)
-│       │    └── MyComponent.html   # Component template (optional)
-│       └── ...                     # Add more components here
+│       └── ...                     # Add components here
 ├── package.json                    # npm configuration and scripts
 ├── vite.config.js                  # Vite configuration
 └── README.md                       # Project documentation
