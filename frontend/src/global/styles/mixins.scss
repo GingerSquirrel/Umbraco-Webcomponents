@@ -4,22 +4,32 @@
   margin-left: auto;
   margin-right: auto;
   width: -webkit-fill-available;
-  padding: 48px 32px;
+  padding: 24px 16px;
   
-  @include desktop(){
+  @include tablet {
+    padding: 32px 24px;
+  }
+  
+  @include desktop {
     max-width: 1440px;
     padding: 48px 144px;
   }
 }
 
-@mixin desktop {
-  @media (min-width: 1440px) {
+@mixin mobile {
+  @media (max-width: 767px) {
     @content;
   }
 }
 
 @mixin tablet {
   @media (min-width: 768px) {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @media (min-width: 1440px) {
     @content;
   }
 }

@@ -1,3 +1,5 @@
+@use './mixins' as *;
+
 //headlines
 
 //headline mixins
@@ -12,26 +14,66 @@
 
 @mixin headline-1{
     @include headline;
-    font-size: 64px;
-    line-height: 76px;
+    font-size: 32px;
+    line-height: 40px;
+    
+    @include tablet {
+        font-size: 48px;
+        line-height: 58px;
+    }
+    
+    @include desktop {
+        font-size: 64px;
+        line-height: 76px;
+    }
 }
 
 @mixin headline-2{
     @include headline;
-    font-size: 36px;
-    line-height: 44px;
+    font-size: 24px;
+    line-height: 32px;
+    
+    @include tablet {
+        font-size: 30px;
+        line-height: 38px;
+    }
+    
+    @include desktop {
+        font-size: 36px;
+        line-height: 44px;
+    }
 }   
 
 @mixin headline-3{
     @include headline;
-    font-size: 28px;
-    line-height: 36px;
+    font-size: 20px;
+    line-height: 28px;
+    
+    @include tablet {
+        font-size: 24px;
+        line-height: 32px;
+    }
+    
+    @include desktop {
+        font-size: 28px;
+        line-height: 36px;
+    }
 }   
 
 @mixin headline-4{
     @include headline;
-    font-size: 20px;
-    line-height: 28px;
+    font-size: 18px;
+    line-height: 26px;
+    
+    @include tablet {
+        font-size: 19px;
+        line-height: 27px;
+    }
+    
+    @include desktop {
+        font-size: 20px;
+        line-height: 28px;
+    }
 }   
 
 
@@ -51,14 +93,34 @@
 
 @mixin body-1{
     @include body;
-    font-size: 18px;
-    line-height: 28px;
+    font-size: 16px;
+    line-height: 24px;
+    
+    @include tablet {
+        font-size: 17px;
+        line-height: 26px;
+    }
+    
+    @include desktop {
+        font-size: 18px;
+        line-height: 28px;
+    }
 }
 
 @mixin body-2{
     @include body;
-    font-size: 16px;
-    line-height: 24px;
+    font-size: 14px;
+    line-height: 22px;
+    
+    @include tablet {
+        font-size: 15px;
+        line-height: 23px;
+    }
+    
+    @include desktop {
+        font-size: 16px;
+        line-height: 24px;
+    }
 }
 
 @mixin body-3{
