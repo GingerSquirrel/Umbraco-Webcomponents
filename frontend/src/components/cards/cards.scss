@@ -28,19 +28,47 @@ p{
     width: 100%;
     justify-content: space-between;
     align-items: center;
+    gap: 32px;
+    align-items: self-start;
+
+    @include desktop {
+        flex-wrap: nowrap;
+        gap: 16px;
+    }
 }
 
 .card{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     
     &-image{
         img{
-            width: 368px;
-            height: 286px;
+            // width: 368px;
+            // height: 286px;
+            width: 100%;
             border-radius: 8px;
+            aspect-ratio: 16 / 9;
         }
     }
 
     &-content{
-
+        h3{
+            @include headline-4;
+            color: var(--Neutral-Grey);
+            margin: 0;
+            text-align: center;
+        }
+        display: flex;
+        width: 75%;
+        padding: 16px;
+        flex-direction: column;
+        align-items: center;
+        gap: 16px;
+        border-radius: 8px;
+        background: var(--Neutral-Silver);
+        margin-top: -96px;
+        position: relative;
+        @include shadow--8px;
     }
 }
