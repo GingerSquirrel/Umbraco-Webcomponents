@@ -27,8 +27,11 @@ nav{
 
     a{
         @include body-2;
-        text-decoration: none;
-        color: var(--Text-Gray-900);
+        
+        & {
+            text-decoration: none;
+            color: var(--Text-Gray-900);
+        }
     }
 }
 

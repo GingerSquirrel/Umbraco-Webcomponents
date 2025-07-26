@@ -34,15 +34,21 @@ h3{
 
     h3{
         @include headline-4;
-        color: var(--Brand-Primary);
-        margin: 0;
-        margin-bottom: 8px;
+        
+        & {
+            color: var(--Brand-Primary);
+            margin: 0;
+            margin-bottom: 8px;
+        }
     }
 
     h4{
         @include body-2;
-        margin: 0;
-        margin-bottom: 32px;
+        
+        & {
+            margin: 0;
+            margin-bottom: 32px;
+        }
     }
 }
 

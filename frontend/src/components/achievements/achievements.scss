@@ -32,11 +32,15 @@
 
 h2{
     @include headline-2;
+    
     span{
         color: var(--Brand-Primary);
         display: block;
     }
-    color: var(--Neutral-D_Grey);
+    
+    & {
+        color: var(--Neutral-D_Grey);
+    }
 }
 
 h3{
@@ -65,6 +69,9 @@ h3{
 
     p{
         @include body-2;
-        margin: 0px;
+        
+        & {
+            margin: 0px;
+        }
     }
 }

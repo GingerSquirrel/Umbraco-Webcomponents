@@ -24,7 +24,10 @@
 
 h2{
     @include headline-2;
-    margin-bottom: 8px;
+    
+    & {
+        margin-bottom: 8px;
+    }
 }
 
 h3{

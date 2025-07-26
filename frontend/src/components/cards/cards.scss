@@ -11,14 +11,20 @@
 
 h2{
     @include headline-2;
-    color: var(--Neutral-D_Grey);
-    text-align: center;
+    
+    & {
+        color: var(--Neutral-D_Grey);
+        text-align: center;
+    }
 }
 
 p{
     @include body-2;
-    color: var(--Neutral-Grey);
-    text-align: center;
+    
+    & {
+        color: var(--Neutral-Grey);
+        text-align: center;
+    }
 }
 
 .cards{
@@ -53,12 +59,6 @@ p{
     }
 
     &-content{
-        h3{
-            @include headline-4;
-            color: var(--Neutral-Grey);
-            margin: 0;
-            text-align: center;
-        }
         display: flex;
         width: 75%;
         padding: 16px;
@@ -70,5 +70,15 @@ p{
         margin-top: -96px;
         position: relative;
         @include shadow--8px;
+        
+        h3{
+            @include headline-4;
+            
+            & {
+                color: var(--Neutral-Grey);
+                margin: 0;
+                text-align: center;
+            }
+        }
     }
 }

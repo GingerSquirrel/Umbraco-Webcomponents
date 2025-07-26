@@ -1,0 +1,9 @@
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Umbraco.Cms.Core.Models.Blocks.BlockListItem>;
+@using Umbraco.Cms.Web.Common.PublishedModels
+@{
+    FooterModule content = Model.Content as FooterModule;
+    FooterModuleSettings settings = Model.Settings as FooterModuleSettings;
+}
+
+<!-- Footer Module -->
+<footer-component></footer-component>
