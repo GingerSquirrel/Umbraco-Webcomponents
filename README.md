@@ -48,6 +48,8 @@ webcomponents-vite-project
 
 - **Component-based:** Organize your UI as reusable web components.
 - **TypeScript & SCSS:** Write modern, type-safe code and modular styles.
+- **Build-time Image Generation:** Automatically create screenshots of components for documentation and marketing.
+- **PWA Support:** Service worker and manifest for progressive web app functionality.
 - **Vite-powered:** Fast development server and optimized builds.
 - **Umbraco-ready:** Designed for easy integration with Umbraco CMS.
 
@@ -57,5 +59,22 @@ webcomponents-vite-project
 
 - See `frontend/README.md` for frontend-specific instructions.
 - See `UmbracoWebcomponents/` for backend/Umbraco usage.
+- See `COMPONENT-IMAGES.md` for automated image generation documentation.
+
+## 🖼️ Component Image Generation
+
+Generate screenshots of all your web components automatically:
+
+```bash
+cd frontend
+npm run build:images
+```
+
+This creates high-quality images perfect for:
+- 📖 Documentation and component libraries
+- 🎨 Design system showcases
+- 📊 Component catalogs
+
+Images are generated in multiple formats (PNG, WebP). See `COMPONENT-IMAGES.md` for complete documentation.
 
 ---

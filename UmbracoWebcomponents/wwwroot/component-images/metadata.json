@@ -1,0 +1,25 @@
+{
+  "generatedAt": "2025-07-27T20:23:00.066Z",
+  "components": [
+    "footer",
+    "hero",
+    "cards",
+    "menu",
+    "quote",
+    "clients",
+    "achievements",
+    "community",
+    "button",
+    "image-and-text"
+  ],
+  "totalImages": 18,
+  "formats": [
+    "png",
+    "webp",
+    "json"
+  ],
+  "directories": [
+    "frontend/dist/component-images",
+    "UmbracoWebcomponents/wwwroot/component-images"
+  ]
+}
