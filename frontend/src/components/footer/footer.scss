@@ -10,9 +10,15 @@
     display: flex;
     align-items: stretch;
     justify-content: space-between;
-    flex-direction: row;
+    
+    flex-direction: column-reverse;
+    gap: 32px;
     
     @include container;
+    @include desktop {
+      flex-direction: row;
+      gap: 0px;
+    }
   }
 }
 
@@ -38,10 +44,14 @@
 .column2 {
   // Direct properties first
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   flex-wrap: nowrap;
   align-items: flex-start;
   gap: 90px;
+
+  @include desktop {
+    flex-direction: row;
+  }
   
   // Nested elements
   .links {
