@@ -10,9 +10,31 @@ pool:
   vmImage: ubuntu-latest
 
 steps:
+- task: UseNode@1
+  inputs:
+    version: '22.12.0'
+
+- script: |
+    rm -rf node_modules
+    npm cache clean --force
+  displayName: 'Clean node_modules and npm cache'
+  workingDirectory: frontend
+
+- script: |
+    npm ci
+    npm run build:all
+  displayName: 'Install and Build'
+  workingDirectory: frontend
+
+- script: |
+    ls -l dist
+    cat dist/index.html
+  displayName: 'Show dist contents'
+  workingDirectory: frontend
+
 - task: AzureStaticWebApp@0
   inputs:
-    app_location: '/frontend'
-    app_build_command: 'npm run build'
+    app_location: '/frontend/dist'
     output_location: 'dist'
+    skip_app_build: true # Prevents the task from running its own build
     azure_static_web_apps_api_token: '$(my_static_app_token)'
