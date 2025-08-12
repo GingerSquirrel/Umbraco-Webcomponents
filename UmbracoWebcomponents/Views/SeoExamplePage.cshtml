@@ -1,0 +1,65 @@
+@using UmbracoWebcomponents.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "master.cshtml";
+    
+    // Get the SEO data as strongly typed model
+    SeoMetaModel? seoData = Model.HasValue("seoMeta") ? Model.Value<SeoMetaModel>("seoMeta") : null;
+    
+    // Use SEO data or fallback to default values
+    string metaTitle = !string.IsNullOrEmpty(seoData?.MetaTitle) ? seoData.MetaTitle : Model.Name;
+    string metaDescription = !string.IsNullOrEmpty(seoData?.MetaDescription) ? seoData.MetaDescription : "";
+    
+    ViewBag.Title = metaTitle;
+    ViewBag.MetaDescription = metaDescription;
+}
+
+@section head {
+    <title>@metaTitle</title>
+    @if (!string.IsNullOrEmpty(metaDescription))
+    {
+        <meta name="description" content="@metaDescription" />
+    }
+}
+
+<div class="page-content">
+    <h1>@Model.Name</h1>
+    
+    @if (seoData != null)
+    {
+        <div class="seo-debug" style="background: #f5f5f5; padding: 15px; margin: 20px 0; border-left: 4px solid #007acc;">
+            <h3>🔍 SEO Preview Debug Info</h3>
+            <p><strong>Meta Title:</strong> @(string.IsNullOrEmpty(seoData.MetaTitle) ? "<em>Not set</em>" : seoData.MetaTitle)</p>
+            <p><strong>Meta Description:</strong> @(string.IsNullOrEmpty(seoData.MetaDescription) ? "<em>Not set</em>" : seoData.MetaDescription)</p>
+            <p><strong>Title Length:</strong> @seoData.MetaTitle?.Length characters</p>
+            <p><strong>Description Length:</strong> @seoData.MetaDescription?.Length characters</p>
+        </div>
+    }
+    else
+    {
+        <div class="seo-debug" style="background: #fff3cd; padding: 15px; margin: 20px 0; border-left: 4px solid #ffc107;">
+            <h3>⚠️ No SEO Data</h3>
+            <p>The SEO Preview property is not set for this page.</p>
+        </div>
+    }
+    
+    <!-- Your page content goes here -->
+    <div class="content">
+        @if (Model.HasValue("bodyText"))
+        {
+            @Model.Value("bodyText")
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // Example: Access SEO data in JavaScript
+        window.seoData = {
+            metaTitle: '@Html.Raw(Json.Serialize(seoData?.MetaTitle ?? ""))',
+            metaDescription: '@Html.Raw(Json.Serialize(seoData?.MetaDescription ?? ""))'
+        };
+        
+        console.log('SEO Data:', window.seoData);
+    </script>
+}

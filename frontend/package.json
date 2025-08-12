@@ -30,7 +30,13 @@
     "build:critical:dist-vite": "sass src/critical.scss ../dist-vite/assets/critical.css --no-source-map --style=compressed",
     "build:critical:umb": "sass src/critical.scss ../UmbracoWebcomponents/wwwroot/assets/critical.css --no-source-map --style=compressed",
     "build:critical:dev": "sass src/critical.scss dist/assets/critical.expanded.css --no-source-map --style=expanded",
-    "dev:critical": "sass src/critical.scss dist/assets/critical.css --no-source-map --watch"
+    "dev:critical": "sass src/critical.scss dist/assets/critical.css --no-source-map --watch",
+    "build:extensions": "npm run build:seo-preview",
+    "build:seo-preview": "cd src/umbraco-extensions/seo-preview && npm install && npm run build",
+    "build:google-search-preview": "cd src/umbraco-extensions/umbraco-google-search-preview-extension && npm install && npm run build:umbraco",
+    "dev:extensions": "npm run dev:seo-preview",
+    "dev:seo-preview": "cd src/umbraco-extensions/seo-preview && npm run dev",
+    "dev:google-search-preview": "cd src/umbraco-extensions/umbraco-google-search-preview-extension && npm run dev:umbraco"
   },
   "devDependencies": {
     "@jest/globals": "^30.0.4",

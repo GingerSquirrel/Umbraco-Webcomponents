@@ -1,0 +1,17 @@
+{
+  "name": "seo-preview-property-editor",
+  "version": "1.0.0",
+  "description": "SEO Preview property editor for Umbraco with Google search result preview",
+  "type": "module",
+  "main": "dist/seo-preview.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "devDependencies": {
+    "@umbraco-cms/backoffice": "*",
+    "lit": "^3.3.1",
+    "vite": "^5.0.0",
+    "typescript": "^5.0.0"
+  }
+}

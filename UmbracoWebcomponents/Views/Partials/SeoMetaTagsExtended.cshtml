@@ -1,0 +1,85 @@
+@using Umbraco.Cms.Web.Common.PublishedModels
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    // Check if current model implements ISeo (has the SEO composition)
+    bool hasSeoComposition = Model is ISeo;
+    ISeo? seoModel = Model as ISeo;
+    
+    // Get SEO data
+    string metaTitle = hasSeoComposition && seoModel != null 
+        ? seoModel.MetaTitle 
+        : Model.Name ?? "";
+    
+    string metaDescription = hasSeoComposition && seoModel != null 
+        ? seoModel.MetaDescription 
+        : "";
+    
+    // Optional: Add site name to title if not already included
+    string siteName = "Your Site Name"; // You can get this from site settings
+    if (!metaTitle.Contains(siteName))
+    {
+        metaTitle = $"{metaTitle} | {siteName}";
+    }
+    
+    string currentUrl = Context.Request.GetDisplayUrl();
+}
+
+<!-- Primary Meta Tags -->
+<title>@metaTitle</title>
+@if (!string.IsNullOrEmpty(metaDescription))
+{
+    <meta name="description" content="@metaDescription" />
+}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="@currentUrl" />
+<meta property="og:title" content="@metaTitle" />
+@if (!string.IsNullOrEmpty(metaDescription))
+{
+    <meta property="og:description" content="@metaDescription" />
+}
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="@currentUrl" />
+<meta property="twitter:title" content="@metaTitle" />
+@if (!string.IsNullOrEmpty(metaDescription))
+{
+    <meta property="twitter:description" content="@metaDescription" />
+}
+
+<!-- Additional SEO meta tags -->
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="@currentUrl" />
+
+@if (hasSeoComposition && seoModel != null)
+{
+    <!-- SEO Composition Available - Debug Comment -->
+    <!-- 
+    SEO Extended Model Data:
+    - Meta Title: @seoModel.MetaTitle
+    - Meta Description: @seoModel.MetaDescription  
+    - Title Optimal: @seoModel.IsMetaTitleOptimal
+    - Description Optimal: @seoModel.IsMetaDescriptionOptimal
+    - Has Good SEO: @seoModel.HasGoodSeo
+    - Warnings: @string.Join(", ", seoModel.SeoWarnings)
+    -->
+    
+    @if (!seoModel.HasGoodSeo)
+    {
+        <!-- SEO Warning for developers (only visible in HTML source) -->
+        <!-- 
+        ⚠️ SEO WARNINGS:
+        @foreach (var warning in seoModel.SeoWarnings)
+        {
+            @:- @warning
+        }
+        -->
+    }
+}
+else
+{
+    <!-- No SEO composition found - using fallback values -->
+    <!-- Model Type: @Model.GetType().Name - Consider adding SEO composition -->
+}

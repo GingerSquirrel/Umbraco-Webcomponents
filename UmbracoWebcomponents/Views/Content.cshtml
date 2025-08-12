@@ -1,9 +1,12 @@
-﻿@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
+﻿@using Umbraco.Cms.Web.Common.PublishedModels
+@using UmbracoWebcomponents.Extensions
+@using ContentModels = Umbraco.Cms.Web.Common.PublishedModels;
 @inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<ContentModels.Content>
 @{
 	Layout = "master.cshtml";
 }
 
+<h1>Preview: @Model.GetMetaTitle() and @Model.GetMetaDescription()</h1>
 
 
 @Html.GetBlockListHtml(Model.Modules)

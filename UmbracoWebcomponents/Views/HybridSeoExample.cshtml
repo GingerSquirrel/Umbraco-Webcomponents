@@ -1,0 +1,82 @@
+@using Umbraco.Cms.Web.Common.PublishedModels
+@using UmbracoWebcomponents.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Content>
+
+@{
+    Layout = "master.cshtml";
+    
+    // 🎯 HYBRID APPROACH - Best of both worlds!
+    
+    // ✅ Simple extension methods (no casting needed)
+    string pageTitle = Model.GetMetaTitle();
+    string metaDescription = Model.GetMetaDescription();
+    bool hasGoodSeo = Model.HasGoodSeo();
+    var seoWarnings = Model.GetSeoWarnings();
+    string seoStatusClass = Model.GetSeoStatusClass();
+    
+    // ✅ Still have access to full SEO model when needed
+    var seoModel = Model.GetSeoModel();
+}
+
+@section head {
+    <title>@pageTitle</title>
+    @if (!string.IsNullOrEmpty(metaDescription))
+    {
+        <meta name="description" content="@metaDescription" />
+    }
+}
+
+<div class="page-content @seoStatusClass">
+    <h1>@Model.Name</h1>
+    
+    <!-- 🚀 Clean, simple access to SEO data -->
+    <div class="seo-info">
+        <h3>SEO Information</h3>
+        <p><strong>Meta Title:</strong> @Model.GetMetaTitle(false) @(string.IsNullOrEmpty(Model.GetMetaTitle(false)) ? "(Using page name)" : "")</p>
+        <p><strong>Meta Description:</strong> @(string.IsNullOrEmpty(metaDescription) ? "Not set" : metaDescription)</p>
+        <p><strong>SEO Status:</strong> @(hasGoodSeo ? "✅ Excellent" : "⚠️ Needs improvement")</p>
+        
+        @if (!hasGoodSeo && seoWarnings.Any())
+        {
+            <div class="seo-warnings">
+                <h4>SEO Recommendations:</h4>
+                <ul>
+                    @foreach (var warning in seoWarnings)
+                    {
+                        <li>@warning</li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+    
+    <!-- 🎨 Advanced usage when you need the full model -->
+    @if (seoModel != null)
+    {
+        <div class="advanced-seo">
+            <h4>Advanced SEO Data:</h4>
+            <p>Title Length: @seoModel.MetaTitle.Length characters (@(seoModel.IsMetaTitleOptimal ? "Optimal" : "Needs adjustment"))</p>
+            <p>Description Length: @seoModel.MetaDescription.Length characters (@(seoModel.IsMetaDescriptionOptimal ? "Optimal" : "Needs adjustment"))</p>
+        </div>
+    }
+    
+    <!-- Your page content -->
+    @if (Model.HasValue("modules"))
+    {
+        @Model.Value("modules")
+    }
+</div>
+
+@section scripts {
+    <script>
+        // 🎯 Even JavaScript access is cleaner
+        window.seoData = {
+            metaTitle: '@Html.Raw(Json.Serialize(Model.GetMetaTitle()))',
+            metaDescription: '@Html.Raw(Json.Serialize(Model.GetMetaDescription()))',
+            hasGoodSeo: @Model.HasGoodSeo().ToString().ToLower(),
+            warnings: @Html.Raw(Json.Serialize(Model.GetSeoWarnings()))
+        };
+        
+        console.log('Page SEO Status:', window.seoData);
+    </script>
+}

@@ -1,0 +1,20 @@
+{
+    "$schema": "../../../../UmbracoWebcomponents/umbraco-package-schema.json",
+    "name": "My.SEOPackage",
+    "version": "0.1.0",
+    "extensions": [
+        {
+            "type": "propertyEditorUi",
+            "alias": "My.PropertyEditorUi.SEOPreview",
+            "name": "SEO Preview Property Editor UI",
+            "element": "/App_Plugins/seo-preview/dist/seo-preview.js",
+            "elementName": "my-seo-preview-property-editor-ui",
+            "meta": {
+                "label": "SEO Preview",
+                "icon": "icon-search",
+                "group": "common",
+                "propertyEditorSchemaAlias": "Umbraco.Plain.JSON"
+            }
+        }
+    ]
+}

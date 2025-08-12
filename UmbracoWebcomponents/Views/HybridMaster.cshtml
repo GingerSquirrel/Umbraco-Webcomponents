@@ -1,0 +1,101 @@
+@using Umbraco.Cms.Web.Common.PublishedModels
+@using UmbracoWebcomponents.Extensions
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+
+@{
+    string siteTitle = "WebComponents Demo";
+    
+    // 🎯 HYBRID APPROACH - Clean and simple!
+    string pageTitle = Model.GetMetaTitle();
+    string metaDescription = Model.GetMetaDescription();
+    
+    // Add site name if not already included
+    if (!pageTitle.Contains(siteTitle))
+    {
+        pageTitle = $"{pageTitle} | {siteTitle}";
+    }
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- 🚀 Clean SEO meta tags -->
+    <title>@pageTitle</title>
+    @if (!string.IsNullOrEmpty(metaDescription))
+    {
+        <meta name="description" content="@metaDescription" />
+    }
+    
+    <!-- SEO status for debugging (remove in production) -->
+    @if (Model.HasSeo())
+    {
+        <meta name="seo-status" content="@Model.GetSeoStatusClass()" />
+        @if (!Model.HasGoodSeo())
+        {
+            <!-- SEO warnings as comment for developers -->
+            <!-- SEO Warnings: @string.Join(", ", Model.GetSeoWarnings()) -->
+        }
+    }
+    
+    <!-- JSON-LD Structured Data -->
+    @if (Model.HasSeo())
+    {
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "@Model.GetMetaTitle(false)",
+            "description": "@Model.GetMetaDescription()",
+            "url": "@Context.Request.GetDisplayUrl()"
+        }
+        </script>
+    }
+    
+    @RenderSection("head", required: false)
+</head>
+<body class="@Model.GetSeoStatusClass()">
+    <header>
+        <nav>
+            <!-- Your navigation -->
+        </nav>
+    </header>
+    
+    <main>
+        @RenderBody()
+    </main>
+    
+    <footer>
+        <!-- Your footer -->
+        
+        @if (Context.Request.Query.ContainsKey("debug"))
+        {
+            <!-- Debug SEO info (only shown with ?debug=true) -->
+            <div class="seo-debug" style="background: #f0f0f0; padding: 10px; margin: 10px; border: 1px solid #ccc;">
+                <h4>SEO Debug Info</h4>
+                <p><strong>Has SEO:</strong> @Model.HasSeo()</p>
+                @if (Model.HasSeo())
+                {
+                    <p><strong>Meta Title:</strong> @Model.GetMetaTitle(false) @(string.IsNullOrEmpty(Model.GetMetaTitle(false)) ? "(using page name)" : "")</p>
+                    <p><strong>Meta Description:</strong> @(string.IsNullOrEmpty(Model.GetMetaDescription()) ? "Not set" : Model.GetMetaDescription())</p>
+                    <p><strong>SEO Status:</strong> @(Model.HasGoodSeo() ? "✅ Good" : "⚠️ Needs attention")</p>
+                    @if (!Model.HasGoodSeo())
+                    {
+                        <p><strong>Warnings:</strong></p>
+                        <ul>
+                            @foreach (var warning in Model.GetSeoWarnings())
+                            {
+                                <li>@warning</li>
+                            }
+                        </ul>
+                    }
+                }
+            </div>
+        }
+    </footer>
+    
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,118 @@
+@using Umbraco.Cms.Web.Common.PublishedModels
+@using UmbracoWebcomponents.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage<Seo>
+@{
+    Layout = "master.cshtml";
+    
+    // Now you can access SEO data directly from the model!
+    ViewBag.Title = Model.MetaTitle;
+    ViewBag.MetaDescription = Model.MetaDescription;
+}
+
+@section head {
+    <title>@Model.MetaTitle</title>
+    @if (!string.IsNullOrEmpty(Model.MetaDescription))
+    {
+        <meta name="description" content="@Model.MetaDescription" />
+    }
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="@Model.MetaTitle" />
+    @if (!string.IsNullOrEmpty(Model.MetaDescription))
+    {
+        <meta property="og:description" content="@Model.MetaDescription" />
+    }
+    
+    <!-- Twitter tags -->
+    <meta name="twitter:title" content="@Model.MetaTitle" />
+    @if (!string.IsNullOrEmpty(Model.MetaDescription))
+    {
+        <meta name="twitter:description" content="@Model.MetaDescription" />
+    }
+}
+
+<div class="page-content">
+    <h1>@Model.Name</h1>
+    
+    <!-- SEO Status Display -->
+    <div class="seo-status" style="background: @(Model.HasGoodSeo ? "#d4edda" : "#f8d7da"); padding: 15px; margin: 20px 0; border-radius: 5px; border-left: 4px solid @(Model.HasGoodSeo ? "#28a745" : "#dc3545");">
+        <h3>@(Model.HasGoodSeo ? "✅" : "⚠️") SEO Status: @(Model.HasGoodSeo ? "Good" : "Needs Attention")</h3>
+        
+        <div class="seo-details">
+            <p><strong>Meta Title:</strong> @Model.MetaTitle</p>
+            <p><strong>Title Length:</strong> @Model.MetaTitle.Length characters @(Model.IsMetaTitleOptimal ? "✅" : "⚠️")</p>
+            
+            <p><strong>Meta Description:</strong> @(string.IsNullOrEmpty(Model.MetaDescription) ? "<em>Not set</em>" : Model.MetaDescription)</p>
+            <p><strong>Description Length:</strong> @Model.MetaDescription.Length characters @(Model.IsMetaDescriptionOptimal ? "✅" : "⚠️")</p>
+        </div>
+        
+        @if (!Model.HasGoodSeo)
+        {
+            <div class="seo-warnings" style="margin-top: 15px;">
+                <h4>SEO Recommendations:</h4>
+                <ul>
+                    @foreach (var warning in Model.SeoWarnings)
+                    {
+                        <li>@warning</li>
+                    }
+                </ul>
+            </div>
+        }
+    </div>
+    
+    <!-- Access individual properties directly -->
+    <div class="seo-debug" style="background: #f8f9fa; padding: 15px; margin: 20px 0; border-radius: 5px;">
+        <h3>🔍 Developer Debug Info</h3>
+        <div class="row">
+            <div class="col-md-6">
+                <h4>Direct Model Access:</h4>
+                <ul>
+                    <li><code>Model.MetaTitle</code>: "@Model.MetaTitle"</li>
+                    <li><code>Model.MetaDescription</code>: "@Model.MetaDescription"</li>
+                    <li><code>Model.IsMetaTitleOptimal</code>: @Model.IsMetaTitleOptimal</li>
+                    <li><code>Model.IsMetaDescriptionOptimal</code>: @Model.IsMetaDescriptionOptimal</li>
+                    <li><code>Model.HasGoodSeo</code>: @Model.HasGoodSeo</li>
+                </ul>
+            </div>
+            <div class="col-md-6">
+                <h4>Typed SEO Data:</h4>
+                <ul>
+                    <li><code>Model.SeoMeta.MetaTitle</code>: "@Model.SeoMeta.MetaTitle"</li>
+                    <li><code>Model.SeoMeta.MetaDescription</code>: "@Model.SeoMeta.MetaDescription"</li>
+                </ul>
+                
+                <h4>Raw JSON:</h4>
+                <p><code>Model.SeoPreview</code>: @Model.SeoPreview</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Your page content goes here -->
+    <div class="content">
+        @if (Model.HasValue("bodyText"))
+        {
+            @Model.Value("bodyText")
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // Example: Access SEO data in JavaScript
+        window.seoData = {
+            metaTitle: '@Html.Raw(Json.Serialize(Model.MetaTitle))',
+            metaDescription: '@Html.Raw(Json.Serialize(Model.MetaDescription))',
+            isOptimal: @Model.HasGoodSeo.ToString().ToLower(),
+            warnings: @Html.Raw(Json.Serialize(Model.SeoWarnings))
+        };
+        
+        console.log('SEO Data:', window.seoData);
+        
+        @if (!Model.HasGoodSeo)
+        {
+            <text>
+            console.warn('SEO Issues Found:', window.seoData.warnings);
+            </text>
+        }
+    </script>
+}

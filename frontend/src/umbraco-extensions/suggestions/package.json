@@ -1,0 +1,17 @@
+{
+  "name": "suggestions-property-editor",
+  "version": "1.0.0",
+  "description": "Suggestions property editor for Umbraco",
+  "type": "module",
+  "main": "dist/suggestions.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "devDependencies": {
+    "@umbraco-cms/backoffice": "*",
+    "lit": "^3.3.1",
+    "vite": "^5.0.0",
+    "typescript": "^5.0.0"
+  }
+}

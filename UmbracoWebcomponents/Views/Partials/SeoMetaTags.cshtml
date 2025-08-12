@@ -1,0 +1,58 @@
+@using UmbracoWebcomponents.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    // Get SEO data from current page
+    SeoMetaModel? seoData = Model.HasValue("seoMeta") ? Model.Value<SeoMetaModel>("seoMeta") : null;
+    
+    // Determine meta title and description
+    string metaTitle = !string.IsNullOrEmpty(seoData?.MetaTitle) ? seoData.MetaTitle : Model.Name;
+    string metaDescription = !string.IsNullOrEmpty(seoData?.MetaDescription) ? seoData.MetaDescription : "";
+    
+    // Optional: Add site name to title if not already included
+    string siteName = "Your Site Name"; // You can get this from site settings
+    if (!metaTitle.Contains(siteName))
+    {
+        metaTitle = $"{metaTitle} | {siteName}";
+    }
+}
+
+<!-- Primary Meta Tags -->
+<title>@metaTitle</title>
+@if (!string.IsNullOrEmpty(metaDescription))
+{
+    <meta name="description" content="@metaDescription" />
+}
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website" />
+<meta property="og:url" content="@Context.Request.GetDisplayUrl()" />
+<meta property="og:title" content="@metaTitle" />
+@if (!string.IsNullOrEmpty(metaDescription))
+{
+    <meta property="og:description" content="@metaDescription" />
+}
+
+<!-- Twitter -->
+<meta property="twitter:card" content="summary_large_image" />
+<meta property="twitter:url" content="@Context.Request.GetDisplayUrl()" />
+<meta property="twitter:title" content="@metaTitle" />
+@if (!string.IsNullOrEmpty(metaDescription))
+{
+    <meta property="twitter:description" content="@metaDescription" />
+}
+
+<!-- Additional SEO meta tags -->
+<meta name="robots" content="index, follow" />
+<link rel="canonical" href="@Context.Request.GetDisplayUrl()" />
+
+@if (seoData != null)
+{
+    <!-- SEO Data Available - Debug Comment -->
+    <!-- 
+    SEO Preview Data:
+    - Meta Title: @seoData.MetaTitle
+    - Meta Description: @seoData.MetaDescription  
+    - Title Length: @seoData.MetaTitle?.Length characters
+    - Description Length: @seoData.MetaDescription?.Length characters
+    -->
+}

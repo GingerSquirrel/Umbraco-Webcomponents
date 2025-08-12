@@ -1,0 +1,16 @@
+{
+  "name": "my-first-extension",
+  "version": "1.0.0",
+  "description": "My first Umbraco extension following the tutorial",
+  "type": "module",
+  "main": "dist/my-first-extension.js",
+  "scripts": {
+    "build": "vite build",
+    "dev": "vite build --watch"
+  },
+  "devDependencies": {
+    "@umbraco-cms/backoffice": "*",
+    "lit": "^3.3.1",
+    "vite": "^5.0.0"
+  }
+}

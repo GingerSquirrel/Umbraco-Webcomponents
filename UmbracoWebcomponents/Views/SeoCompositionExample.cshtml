@@ -1,0 +1,157 @@
+@using Umbraco.Cms.Web.Common.PublishedModels
+@using UmbracoWebcomponents.Models
+@inherits Umbraco.Cms.Web.Common.Views.UmbracoViewPage
+@{
+    Layout = "master.cshtml";
+    
+    // Check if the current model has the SEO composition
+    var seoModel = Model as ISeo;
+    bool hasSeoComposition = seoModel != null;
+    
+    // Get SEO data if available
+    string metaTitle = "";
+    string metaDescription = "";
+    bool hasGoodSeo = false;
+    List<string> seoWarnings = new List<string>();
+    
+    if (hasSeoComposition && seoModel is Seo seoExtended)
+    {
+        // Use the extended Seo model with all the additional properties
+        metaTitle = !string.IsNullOrWhiteSpace(seoExtended.MetaTitle) ? seoExtended.MetaTitle : Model.Name;
+        metaDescription = seoExtended.MetaDescription;
+        hasGoodSeo = seoExtended.HasGoodSeo;
+        seoWarnings = seoExtended.SeoWarnings;
+    }
+    else
+    {
+        // Fallback if no SEO composition
+        metaTitle = Model.Name ?? "";
+    }
+    
+    ViewBag.Title = metaTitle;
+    ViewBag.MetaDescription = metaDescription;
+}
+
+@section head {
+    <title>@metaTitle</title>
+    @if (!string.IsNullOrEmpty(metaDescription))
+    {
+        <meta name="description" content="@metaDescription" />
+    }
+    
+    <!-- Open Graph tags -->
+    <meta property="og:title" content="@metaTitle" />
+    @if (!string.IsNullOrEmpty(metaDescription))
+    {
+        <meta property="og:description" content="@metaDescription" />
+    }
+}
+
+<div class="page-content">
+    <h1>@Model.Name</h1>
+    
+    @if (hasSeoComposition && seoModel is Seo seoExtended)
+    {
+        <!-- SEO Status Display for Extended Model -->
+        <div class="seo-status" style="background: @(hasGoodSeo ? "#d4edda" : "#f8d7da"); padding: 15px; margin: 20px 0; border-radius: 5px; border-left: 4px solid @(hasGoodSeo ? "#28a745" : "#dc3545");">
+            <h3>@(hasGoodSeo ? "✅" : "⚠️") SEO Status: @(hasGoodSeo ? "Good" : "Needs Attention")</h3>
+            
+            <div class="seo-details">
+                <p><strong>Meta Title:</strong> @(string.IsNullOrEmpty(seoExtended.MetaTitle) ? "<em>Using page name</em>" : seoExtended.MetaTitle)</p>
+                <p><strong>Title Length:</strong> @metaTitle.Length characters @(seoExtended.IsMetaTitleOptimal ? "✅" : "⚠️")</p>
+                
+                <p><strong>Meta Description:</strong> @(string.IsNullOrEmpty(seoExtended.MetaDescription) ? "<em>Not set</em>" : seoExtended.MetaDescription)</p>
+                <p><strong>Description Length:</strong> @seoExtended.MetaDescription.Length characters @(seoExtended.IsMetaDescriptionOptimal ? "✅" : "⚠️")</p>
+            </div>
+            
+            @if (!hasGoodSeo)
+            {
+                <div class="seo-warnings" style="margin-top: 15px;">
+                    <h4>SEO Recommendations:</h4>
+                    <ul>
+                        @foreach (var warning in seoWarnings)
+                        {
+                            <li>@warning</li>
+                        }
+                    </ul>
+                </div>
+            }
+        </div>
+        
+        <!-- Developer Debug Info -->
+        <div class="seo-debug" style="background: #f8f9fa; padding: 15px; margin: 20px 0; border-radius: 5px;">
+            <h3>🔍 Extended SEO Model Usage</h3>
+            <div class="row">
+                <div class="col-md-6">
+                    <h4>Strongly Typed Properties:</h4>
+                    <ul>
+                        <li><code>seoExtended.MetaTitle</code>: "@seoExtended.MetaTitle"</li>
+                        <li><code>seoExtended.MetaDescription</code>: "@seoExtended.MetaDescription"</li>
+                        <li><code>seoExtended.IsMetaTitleOptimal</code>: @seoExtended.IsMetaTitleOptimal</li>
+                        <li><code>seoExtended.IsMetaDescriptionOptimal</code>: @seoExtended.IsMetaDescriptionOptimal</li>
+                        <li><code>seoExtended.HasGoodSeo</code>: @seoExtended.HasGoodSeo</li>
+                    </ul>
+                </div>
+                <div class="col-md-6">
+                    <h4>SEO Data Object:</h4>
+                    <ul>
+                        <li><code>seoExtended.SeoMeta.MetaTitle</code>: "@seoExtended.SeoMeta.MetaTitle"</li>
+                        <li><code>seoExtended.SeoMeta.MetaDescription</code>: "@seoExtended.SeoMeta.MetaDescription"</li>
+                    </ul>
+                    
+                    <h4>Raw Data:</h4>
+                    <p><code>seoExtended.SeoPreview</code>: @seoExtended.SeoPreview</p>
+                </div>
+            </div>
+        </div>
+    }
+    else if (hasSeoComposition)
+    {
+        <!-- Basic SEO composition without extensions -->
+        <div class="seo-basic" style="background: #fff3cd; padding: 15px; margin: 20px 0; border-left: 4px solid #ffc107;">
+            <h3>📄 Basic SEO Composition</h3>
+            <p>This page has the SEO composition but using basic access:</p>
+            <p><strong>Raw SEO Data:</strong> @seoModel.SeoPreview</p>
+            <p><em>Use the extended Seo model for more features!</em></p>
+        </div>
+    }
+    else
+    {
+        <!-- No SEO composition -->
+        <div class="no-seo" style="background: #f8d7da; padding: 15px; margin: 20px 0; border-left: 4px solid #dc3545;">
+            <h3>❌ No SEO Composition</h3>
+            <p>This document type doesn't have the SEO composition.</p>
+            <p>Consider adding the SEO composition to enable SEO preview functionality.</p>
+        </div>
+    }
+    
+    <!-- Your page content goes here -->
+    <div class="content">
+        @if (Model.HasValue("bodyText"))
+        {
+            @Model.Value("bodyText")
+        }
+    </div>
+</div>
+
+@section scripts {
+    <script>
+        // SEO data for JavaScript
+        window.seoData = {
+            hasComposition: @hasSeoComposition.ToString().ToLower(),
+            metaTitle: '@Html.Raw(Json.Serialize(metaTitle))',
+            metaDescription: '@Html.Raw(Json.Serialize(metaDescription))',
+            hasGoodSeo: @hasGoodSeo.ToString().ToLower(),
+            warnings: @Html.Raw(Json.Serialize(seoWarnings))
+        };
+        
+        console.log('SEO Data:', window.seoData);
+        
+        @if (!hasGoodSeo && seoWarnings.Any())
+        {
+            <text>
+            console.warn('SEO Issues Found:', window.seoData.warnings);
+            </text>
+        }
+    </script>
+}
