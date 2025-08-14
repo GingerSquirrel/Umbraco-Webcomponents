@@ -1,0 +1,20 @@
+{
+  "id": "GingerSquirrel.SeoPreview",
+  "name": "GingerSquirrel SEO Preview",
+  "version": "1.0.19",
+  "allowTelemetry": true,
+  "extensions": [
+    {
+      "type": "propertyEditorUi",
+      "alias": "GingerSquirrel.PropertyEditorUi.SEOPreview",
+      "name": "SEO Preview Property Editor UI",
+      "element": "/App_Plugins/GingerSquirrelSeoPreview/seo-preview-property-editor-ui.element-Dx0_GRXh.js",
+      "meta": {
+        "label": "SEO Preview",
+        "icon": "icon-search",
+        "group": "common",
+        "propertyEditorSchemaAlias": "GingerSquirrel.PropertyEditorUi.SEOPreview"
+      }
+    }
+  ]
+}
